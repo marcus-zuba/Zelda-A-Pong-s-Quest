@@ -1,13 +1,15 @@
 #include<vetor2d.h>
 
 struct sprite{
-    float x,y;
-    float larg, altur;
     
-    int idTextura;
+    struct vetor2d posicao;  // Posição atual
+    struct vetor2d proporcao;  // Altura, largura
     
-    int quadrosHorizontais;
-    int quadrosVerticais;
+    int idTextura;  // id da textura utilizada
     
-    int quadroAtua;
+    int quadrosHorizontais;  // quantidade de quadros H
+    int quadrosVerticais;   // quantidade de quadros V
+    
+    int quadroAtual;  // número do quadro atual 
 }
+
