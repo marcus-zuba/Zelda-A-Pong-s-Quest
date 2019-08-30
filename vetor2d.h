@@ -1,3 +1,3 @@
 struct vetor2d{
-  int x, y;
+  float x, y;
 }
