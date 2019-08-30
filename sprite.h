@@ -1,3 +1,5 @@
+#include<vetor2d.h>
+
 struct sprite{
     float x,y;
     float larg, altur;
