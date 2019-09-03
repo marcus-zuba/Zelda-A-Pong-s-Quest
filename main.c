@@ -7,6 +7,15 @@
 #define X_MAXIMO 100
 #define X_MINIMO -100
 
+int PontuacaoLink;
+int PontuacaoGanon;
+int SetsLink;
+int SetsGanon;
+
+enum Tela {MENU, JOGO, PAUSE, VITORIA};
+
+enum Tela telaAtual;
+
 struct vetor2d{
   GLfloat x, y;
 };
@@ -31,6 +40,18 @@ struct sprite bola;
 
 int keyboard[256];
 int pause = 0;
+
+void escrevePontuacao(void * font, int pontuacao, float x, float y){
+    glRasterPos2f(x,y);
+    char c = pontuacao + 48;
+    glutBitmapCharacter(font, c);
+}
+
+void escreveSet(void * font, int set, float x, float y){
+    glRasterPos2f(x,y);
+    char c = set + 48;
+    glutBitmapCharacter(font, c);
+}
 
 void desenhaPersonagem(float x, float y, float l, float a){ // x, y, largura, altura
 
@@ -57,16 +78,39 @@ void desenhaBola(float x, float y, float l, float a){ // x, y, largura, altura
 }
 
 void desenhaMinhaCena(){
-    
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0, 1, 0);
-    desenhaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x, link.proporcao.y);
-    glColor3f(1, 0, 0);
-    desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y);
-    glColor3f(0, 0, 0);
-    desenhaBola(bola.posicao.x, bola.posicao.y,bola.proporcao.x,bola.proporcao.y);
-    glutSwapBuffers();
 
+    switch(telaAtual){
+
+        case(MENU):
+            glClear(GL_COLOR_BUFFER_BIT);
+            glColor3f(0, 1, 0);
+            desenhaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x, link.proporcao.y);
+            glutSwapBuffers();
+            break;
+        case(JOGO):
+            glClear(GL_COLOR_BUFFER_BIT);
+            glColor3f(0, 0, 0);
+            escrevePontuacao(GLUT_BITMAP_HELVETICA_18,PontuacaoLink, -80, 80);
+            escrevePontuacao(GLUT_BITMAP_HELVETICA_18,PontuacaoGanon, 80, 80);
+            escreveSet(GLUT_BITMAP_HELVETICA_18,SetsLink, -80, 90);
+            escreveSet(GLUT_BITMAP_HELVETICA_18,SetsGanon, 80, 90);                    
+            glColor3f(0, 1, 0);
+            desenhaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x, link.proporcao.y);
+            glColor3f(1, 0, 0);
+            desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y);
+            glColor3f(0, 0, 0);
+            desenhaBola(bola.posicao.x, bola.posicao.y,bola.proporcao.x,bola.proporcao.y);
+            glutSwapBuffers();
+            break;
+        case(VITORIA):
+            glClear(GL_COLOR_BUFFER_BIT);
+            glColor3f(1, 0, 0);
+            desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y);
+            glutSwapBuffers();
+            break;
+        default:
+            break;
+    }
 }
 
 void atualizaVelocidade(){
@@ -84,31 +128,70 @@ void atualizaVelocidade(){
     GLfloat ag = ganon.proporcao.y; // altura do ganon
     GLfloat lg = ganon.proporcao.x; // largura do ganon
 
-    if(yb+ab == Y_MAXIMO || yb-ab == Y_MINIMO)
+    if(yb+ab >= Y_MAXIMO || yb-ab <= Y_MINIMO)
         bola.velocidade.y *= -1;
-    if((xb-lb==xl+ll) && (yb <= yl+al && yb >= yl-al))
+    if((xb-lb<=xl+ll) && (yb <= yl+al && yb >= yl-al))
         bola.velocidade.x *= -1; 
-    if((xb+lb==xg-lg) && (yb <= yg+ag && yb >= yg-ag))
+    if((xb+lb>=xg-lg) && (yb <= yg+ag && yb >= yg-ag))
         bola.velocidade.x *= -1; 
+
+    if(xb-lb<=X_MINIMO && PontuacaoGanon<3){
+        PontuacaoGanon++;
+        bola.posicao.x=0;
+        bola.posicao.y=0;
+    }
+
+    if(xb+lb>=X_MAXIMO && PontuacaoLink<3){
+        PontuacaoLink++;
+        bola.posicao.x=0;
+        bola.posicao.y=0;
+    }
+
+    if(PontuacaoLink==3){
+        SetsLink++;
+        PontuacaoLink=0;
+    }
+
+    if(PontuacaoGanon==3){
+        SetsGanon++;
+        PontuacaoGanon=0;
+    }
+
+    if(SetsLink==2){
+        telaAtual=VITORIA;
+        SetsLink=0;
+    }
+
+    if(SetsGanon==2){
+        telaAtual=VITORIA;
+        SetsGanon=0;
+    }
 
 }
 
 void atualizaCena(int valorQualquer){
 
-    if(pause%2==0){
-        atualizaVelocidade();
-        if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO))
-            link.posicao.y+=5;
-        if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO))
-            link.posicao.y-=5;
-        if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO))
-            ganon.posicao.y+=5;
-        if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO))
-            ganon.posicao.y-=5;
+    switch(telaAtual){
+        case(JOGO):
+            if(pause%2==0){
+                atualizaVelocidade();
+                if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO))
+                    link.posicao.y+=5;
+                if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO))
+                    link.posicao.y-=5;
+                if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO))
+                    ganon.posicao.y+=5;
+                if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO))
+                    ganon.posicao.y-=5;
 
-        bola.posicao.x+=bola.velocidade.x;
-        bola.posicao.y+=bola.velocidade.y;
+                bola.posicao.x+=bola.velocidade.x;
+                bola.posicao.y+=bola.velocidade.y;
+            }
+            break;
+        default:
+            break;
     }
+
     glutPostRedisplay();
     glutTimerFunc(33, atualizaCena, 0);
 
@@ -127,10 +210,15 @@ void inicializa(){
     ganon.posicao.y=0;
     ganon.proporcao.x=5;
     ganon.proporcao.y=15;
-    bola.velocidade.x=1;
-    bola.velocidade.y=1;
+    bola.velocidade.x=2;
+    bola.velocidade.y=2;
     bola.proporcao.x=3;
     bola.proporcao.y=3;
+    telaAtual = MENU;
+    PontuacaoLink=0;
+    PontuacaoGanon=0;
+    SetsLink=0;
+    SetsGanon=0;
 
 }
 
@@ -146,17 +234,29 @@ void redimensionada(int width, int height){
 }
 
 void teclaPressionada(unsigned char key, int x, int y){
-    keyboard[key]=1;
-    switch(key){
-        case(27):
-            exit(0);
-            break;
-        case('p'):
-            pause++;
-            break;
-    default:
-        break;
+    switch(telaAtual){
+        case(MENU):
+            switch(key){
+                case(32):
+                    telaAtual=JOGO;
+                    break;
+                default:
+                    break;
+            }      
+        case(JOGO):
+            keyboard[key]=1;
+            switch(key){
+                case(27):
+                    exit(0);
+                    break;
+                case('p'):
+                    pause++;
+                    break;
+            default:
+                break;
+            }
     }
+        
 }
 
 void teclaLiberada(unsigned char key, int x, int y){
@@ -173,7 +273,7 @@ int main(int argc, char** argv){
     glutInitWindowSize(1600, 900);
     glutInitWindowPosition(200, 100);
 
-    glutCreateWindow("The Adventure of Zelda Pong");
+    glutCreateWindow(" ");
 
     glutReshapeFunc(redimensionada);
     glutKeyboardFunc(teclaPressionada);
