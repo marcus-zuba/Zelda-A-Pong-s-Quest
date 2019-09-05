@@ -1,3 +1,4 @@
+#include <SOIL/SOIL.h>
 #include <math.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -22,6 +23,24 @@ int velocidadeGanon;
 enum Tela {MENU, JOGO, PAUSE, VITORIA};
 
 enum Tela telaAtual;
+
+GLuint idTexturaFundo;
+
+GLuint carregaTextura(const char* arquivo) {
+    GLuint idTextura = SOIL_load_OGL_texture(
+                           arquivo,
+                           SOIL_LOAD_AUTO,
+                           SOIL_CREATE_NEW_ID,
+                           SOIL_FLAG_INVERT_Y
+                       );
+
+    if (idTextura == 0) {
+        printf("Erro do SOIL: '%s'\n", SOIL_last_result());
+    }
+
+    return idTextura;
+}
+
 
 struct vetor2d{
   GLfloat x, y;
@@ -70,7 +89,27 @@ void escreveSet(void * font, int set, float x, float y){
     glutBitmapCharacter(font, c);
 }
 
+void desenhaFundo(float x, float y, float l, float a){
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, idTexturaFundo);
+    glColor3f(1,1,1);
+    glBegin(GL_TRIANGLE_FAN);
+    glTexCoord2f(0,0);
+    glVertex2f(-100,-100);
+    glTexCoord2f(0,1);
+    glVertex2f(-100,100);
+    glTexCoord2f(1,1);
+    glVertex2f(100,100);
+    glTexCoord2f(1,0);
+    glVertex2f(100,-100); 
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+
+}
+
 void desenhaPersonagem(float x, float y, float l, float a){ // x, y, largura, altura
+
 
     glBegin(GL_TRIANGLE_FAN);
     glVertex2f(x-l,y-a);
@@ -108,20 +147,6 @@ void desenhaBotoes(){
     desenhaPersonagem(0,-30,20,10);
 }
 
-void desenhaJogo(){
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0, 0, 0);
-    escrevePontuacao(GLUT_BITMAP_HELVETICA_18,PontuacaoLink, -80, 80);
-    escrevePontuacao(GLUT_BITMAP_HELVETICA_18,PontuacaoGanon, 80, 80);
-    escreveSet(GLUT_BITMAP_HELVETICA_18,SetsLink, -80, 90);
-    escreveSet(GLUT_BITMAP_HELVETICA_18,SetsGanon, 80, 90);                    
-    glColor3f(0, 1, 0);
-    desenhaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x, link.proporcao.y);
-    glColor3f(1, 0, 0);
-    desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y);
-    glColor3f(0, 0, 0);
-    desenhaBola(bola.posicao.x, bola.posicao.y,bola.proporcao.x,bola.proporcao.y);
-}
 
 void desenhaMinhaCena(){
 
@@ -132,6 +157,8 @@ void desenhaMinhaCena(){
             glutSwapBuffers();
             break;
         case(JOGO):
+            glClear(GL_COLOR_BUFFER_BIT);
+            desenhaFundo(2,3,4,5);
             desenhaJogo();
             glutSwapBuffers();
             break;
@@ -298,6 +325,9 @@ void inicializa(){
     vitoriaLink=0;
     velocidadeLink=10;
     velocidadeGanon=10;
+    glEnable(GL_BLEND );
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    idTexturaFundo = carregaTextura("fundo.png");
 }
 
 void movimentoMouse(int x, int y){
