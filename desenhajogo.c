@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <string.h>
+#include "global.h"
 #include "main.h"
 
 void desenhaJogo(){
@@ -14,6 +15,6 @@ void desenhaJogo(){
     desenhaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x, link.proporcao.y);
     glColor3f(1, 0, 0);
     desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y);
-    glColor3f(0, 0, 0);
+    glColor3f(1, 1, 1);
     desenhaBola(bola.posicao.x, bola.posicao.y,bola.proporcao.x,bola.proporcao.y);
 }

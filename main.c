@@ -3,28 +3,16 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <string.h>
+#include <stdio.h>
+
+#include "desenhajogo.h"
+#include "global.h"
+#include "inicializa.h"
 
 #define Y_MAXIMO 100
 #define Y_MINIMO -100
 #define X_MAXIMO 100
 #define X_MINIMO -100
-
-int PontuacaoLink;
-int PontuacaoGanon;
-int SetsLink;
-int SetsGanon;
-int botaoStart;
-int botaoExit;
-int vitoriaLink;
-int vitoriaGanon;
-int velocidadeLink;
-int velocidadeGanon;
-
-enum Tela {MENU, JOGO, PAUSE, VITORIA};
-
-enum Tela telaAtual;
-
-GLuint idTexturaFundo;
 
 GLuint carregaTextura(const char* arquivo) {
     GLuint idTextura = SOIL_load_OGL_texture(
@@ -41,33 +29,6 @@ GLuint carregaTextura(const char* arquivo) {
     return idTextura;
 }
 
-
-struct vetor2d{
-  GLfloat x, y;
-};
-
-struct sprite{
-    
-    struct vetor2d posicao;  // Posição atual
-    struct vetor2d proporcao;  // Altura, largura
-    struct vetor2d velocidade;
-
-    GLint idTextura;  // id da textura utilizada
-    
-    GLint quadrosHorizontais;  // quantidade de quadros H
-    GLint quadrosVerticais;   // quantidade de quadros V
-    
-    GLint quadroAtual;  // número do quadro atual 
-};
-
-struct sprite link;
-struct sprite ganon;
-struct sprite bola;
-struct vetor2d posicaoMouse;
-struct vetor2d cMouse;
-
-int keyboard[256];
-int pause = 0;
 
 void escreveTexto(void * font, char *s, float x, float y) {
     int i;
@@ -135,12 +96,12 @@ void desenhaBola(float x, float y, float l, float a){ // x, y, largura, altura
 
 void desenhaBotoes(){
     glClear(GL_COLOR_BUFFER_BIT);
-    if(botaoStart)
+    if(botaoAtual == START)
         glColor3f(0,0,1);
     else
         glColor3f(0,0,0);
     desenhaPersonagem(0,30,20,10);
-    if(botaoExit)
+    if(botaoAtual == EXIT)
         glColor3f(0 ,0 ,1);
     else
         glColor3f(0,0,0);
@@ -160,6 +121,16 @@ void desenhaMinhaCena(){
             glClear(GL_COLOR_BUFFER_BIT);
             desenhaFundo(2,3,4,5);
             desenhaJogo();
+            glutSwapBuffers();
+            break;
+        case(PAUSE):
+            glColor3f(1,1,1);
+            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "PAUSE - PARA REINICIAR PRESSIONE P", -30,60);  
+            glutSwapBuffers();                                  
+            break;
+        case(CONFIRMA):
+            glColor3f(1,1,1);
+            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "DESEJA MESMO SAIR? APERTE S PARA SIM OU N PARA NAO", -50,60);                                    
             glutSwapBuffers();
             break;
         case(VITORIA):
@@ -254,40 +225,20 @@ void movimentaPersonagens(){
         ganon.posicao.y-=velocidadeGanon;
 }
 
-void detectaMouse(){
-
-    if((posicaoMouse.y>=20 && posicaoMouse.y<=40) && 
-        (posicaoMouse.x>=-20 && posicaoMouse.x<=20))
-            botaoStart=1;
-    else
-            botaoStart=0;
-    if((posicaoMouse.y<=-20 && posicaoMouse.y>=-40) && 
-        (posicaoMouse.x>=-20 && posicaoMouse.x<=20))
-            botaoExit=1;
-    else
-            botaoExit=0;
-    if((cMouse.y>=20 && cMouse.y<=40) && 
-        (cMouse.x>=-20 && cMouse.x<=20))
-            telaAtual=JOGO;
-    if((cMouse.y<=-20 && cMouse.y>=-40) && 
-        (cMouse.x>=-20 && cMouse.x<=20))
-            exit(0);
-
-}
-
 void atualizaCena(int valorQualquer){
     switch(telaAtual){
         case(MENU):
-            detectaMouse();
             break;
         case(JOGO):
-            if(pause%2==0){
-                atualizaPontuacao();
-                atualizaVelocidade();
-                movimentaPersonagens();
-                bola.posicao.x+=bola.velocidade.x;
-                bola.posicao.y+=bola.velocidade.y;
-            }
+            atualizaPontuacao();
+            atualizaVelocidade();
+            movimentaPersonagens();
+            bola.posicao.x+=bola.velocidade.x;
+            bola.posicao.y+=bola.velocidade.y;
+            break;
+        case(PAUSE):
+            break;
+        case(CONFIRMA):
             break;
         default:
             break;
@@ -297,48 +248,6 @@ void atualizaCena(int valorQualquer){
     glutTimerFunc(33, atualizaCena, 0);
 }
 
-void inicializa(){
-
-    glClearColor(1, 1, 1, 1);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glLineWidth(3);
-    link.posicao.x=-90;
-    link.posicao.y=0;
-    link.proporcao.x=2;
-    link.proporcao.y=15;
-    ganon.posicao.x=90;
-    ganon.posicao.y=0;
-    ganon.proporcao.x=2;
-    ganon.proporcao.y=15;
-    bola.velocidade.x=3.5;
-    bola.velocidade.y=3.5;
-    bola.proporcao.x=3;
-    bola.proporcao.y=3;
-    telaAtual = MENU;
-    PontuacaoLink=0;
-    PontuacaoGanon=0;
-    SetsLink=0;
-    SetsGanon=0;
-    botaoStart=0;
-    botaoExit=0;
-    vitoriaGanon=0;
-    vitoriaLink=0;
-    velocidadeLink=10;
-    velocidadeGanon=10;
-    glEnable(GL_BLEND );
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    idTexturaFundo = carregaTextura("fundo.png");
-}
-
-void movimentoMouse(int x, int y){
-    posicaoMouse.x=x;
-    posicaoMouse.y=y;
-}
-
-void cliqueMouse(int button, int state, int x, int y){
-    cMouse.x=x;
-    cMouse.y=y;
-}
 
 void redimensionada(int width, int height){
     glViewport(0, 0, width, height);
@@ -355,26 +264,58 @@ void teclaPressionada(unsigned char key, int x, int y){
     switch(telaAtual){
         case(MENU):
             switch(key){
-                case(32):
-                    telaAtual=JOGO;
+                case('w'):
+                    botaoAtual = START;
                     break;
-                case(27):
-                    exit(0);
-                default:
+                case('s'):
+                    botaoAtual = EXIT;
                     break;
-            }      
-        case(JOGO):
-            keyboard[key]=1;
-            switch(key){
-                case(27):
-                    exit(0);
-                    break;
-                case('p'):
-                    pause++;
+                case(13):
+                    if(botaoAtual == START)
+                        telaAtual = JOGO;
+                    if(botaoAtual == EXIT)
+                        exit(0);
                     break;
                 default:
                     break;
             }
+            break;      
+        case(JOGO):
+            keyboard[key]=1;
+            switch(key){
+                case(27):
+                    glutPostRedisplay();
+                    telaAtual = CONFIRMA;
+                    break;
+                case('p'):
+                    telaAtual = PAUSE;
+                    glutPostRedisplay();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case(PAUSE):
+            switch(key){
+                case('p'):
+                    glColor3f(1, 1, 1);
+                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "3", -5,0);
+                    glutSwapBuffers();
+                    sleep(1);
+                    glColor3f(1, 1, 1);
+                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "2", 0,0);
+                    glutSwapBuffers();
+                    sleep(1);
+                    glColor3f(1, 1, 1);
+                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "1", 5,0);
+                    glutSwapBuffers();
+                    sleep(1);                    
+                    telaAtual = JOGO;
+                    break;
+                default:
+                    break;
+            }
+            break;
         case(VITORIA):
             switch(key){
                 case(27):
@@ -385,6 +326,28 @@ void teclaPressionada(unsigned char key, int x, int y){
                 default:
                     break;    
             }
+            break;
+        case(CONFIRMA):
+            switch(key){
+                case('s'):
+                    exit(0);
+                case('n'):
+                    glColor3f(1, 1, 1);
+                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "3", -5,0);
+                    glutSwapBuffers();
+                    sleep(1);
+                    glColor3f(1, 1, 1);
+                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "2", 0,0);
+                    glutSwapBuffers();
+                    sleep(1);
+                    glColor3f(1, 1, 1);
+                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "1", 5,0);
+                    glutSwapBuffers();
+                    sleep(1);                    
+                    telaAtual = JOGO;
+                    break;
+            }
+            break;
         default:
             break;
     }
@@ -408,8 +371,6 @@ int main(int argc, char** argv){
     glutCreateWindow(" ");
 
     glutReshapeFunc(redimensionada);
-    glutPassiveMotionFunc(movimentoMouse);
-    glutMouseFunc(cliqueMouse);
     glutKeyboardFunc(teclaPressionada);
     glutKeyboardUpFunc(teclaLiberada);
     glutDisplayFunc(desenhaMinhaCena);
