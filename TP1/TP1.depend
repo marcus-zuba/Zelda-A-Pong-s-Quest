@@ -252,3 +252,73 @@
 1426360528 c:\program files (x86)\codeblocks\mingw\include\gl\freeglut_ext.h
 	<stdarg.h>
 
+1568058869 source:c:\users\felip\tp1-cg\tp1\main.c
+	<SOIL/SOIL.h>
+	<math.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<string.h>
+	<stdio.h>
+	<unistd.h>
+	"desenhajogo.h"
+	"global.h"
+	"inicializa.h"
+
+1215465208 c:\program files (x86)\codeblocks\mingw\include\soil\soil.h
+
+1341006776 c:\program files (x86)\codeblocks\mingw\include\stdio.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<sys/types.h>
+
+1341006780 c:\program files (x86)\codeblocks\mingw\include\sys\types.h
+	<_mingw.h>
+	<stddef.h>
+
+1568045145 source:c:\users\felip\tp1-cg\tp1\desenhajogo.c
+	<math.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<string.h>
+	"global.h"
+	"main.h"
+	"inicializa.h"
+
+1568031140 c:\users\felip\tp1-cg\tp1\main.h
+
+1568043032 source:c:\users\felip\tp1-cg\tp1\global.c
+	<GL/glew.h>
+	<GL/freeglut.h>
+
+1568045145 source:c:\users\felip\tp1-cg\tp1\inicializa.c
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<SOIL/SOIL.h>
+	"main.h"
+	"global.h"
+
+1568043032 c:\users\felip\tp1-cg\tp1\global.h
+
+1341006776 c:\program files (x86)\codeblocks\mingw\include\unistd.h
+	<io.h>
+	<process.h>
+	<getopt.h>
+	<sys/types.h>
+
+1341006774 c:\program files (x86)\codeblocks\mingw\include\io.h
+	<_mingw.h>
+	<sys/types.h>
+
+1341006774 c:\program files (x86)\codeblocks\mingw\include\process.h
+	<_mingw.h>
+	<sys/types.h>
+	<stdint.h>
+
+1341006772 c:\program files (x86)\codeblocks\mingw\include\getopt.h
+	<_mingw.h>
+
+1567689403 c:\users\felip\tp1-cg\tp1\desenhajogo.h
+
+1567994983 c:\users\felip\tp1-cg\tp1\inicializa.h
+
