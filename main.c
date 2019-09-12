@@ -5,14 +5,15 @@
 #include <string.h>
 #include <stdio.h>
 
+
 #include "desenhajogo.h"
 #include "global.h"
 #include "inicializa.h"
 
-#define Y_MAXIMO 100
-#define Y_MINIMO -100
-#define X_MAXIMO 100
-#define X_MINIMO -100
+#define Y_MAXIMO 75
+#define Y_MINIMO -73
+#define X_MAXIMO 75
+#define X_MINIMO -72
 
 GLuint carregaTextura(const char* arquivo) {
     GLuint idTextura = SOIL_load_OGL_texture(
@@ -50,10 +51,10 @@ void escreveSet(void * font, int set, float x, float y){
     glutBitmapCharacter(font, c);
 }
 
-void desenhaFundo(float x, float y, float l, float a){
+void desenhaFundo(float x, float y, float l, float a, GLuint idTextura){
 
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, idTexturaFundo);
+    glBindTexture(GL_TEXTURE_2D, idTextura);
     glColor3f(1,1,1);
     glBegin(GL_TRIANGLE_FAN);
     glTexCoord2f(0,0);
@@ -63,50 +64,63 @@ void desenhaFundo(float x, float y, float l, float a){
     glTexCoord2f(1,1);
     glVertex2f(100,100);
     glTexCoord2f(1,0);
-    glVertex2f(100,-100); 
+    glVertex2f(100,-100);
     glEnd();
     glDisable(GL_TEXTURE_2D);
 
 }
 
-void desenhaPersonagem(float x, float y, float l, float a){ // x, y, largura, altura
+void desenhaPersonagem(float x, float y, float l, float a, GLuint idTextura){ // x, y, largura, altura
 
-
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, idTextura);
+    glColor3f(1,1,1);
     glBegin(GL_TRIANGLE_FAN);
+    glTexCoord2f(0,0);
     glVertex2f(x-l,y-a);
+    glTexCoord2f(1,0);
     glVertex2f(x+l,y-a);
+    glTexCoord2f(1,1);
     glVertex2f(x+l,y+a);
-    glVertex2f(x-l,y+a); 
+    glTexCoord2f(0,1);
+    glVertex2f(x-l,y+a);
     glEnd();
-    
 
 }
 
-void desenhaBola(float x, float y, float l, float a){ // x, y, largura, altura
+void desenhaBola(float x, float y, float l, float a, GLuint idTextura){ // x, y, largura, altura
 
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, idTextura);
+    glColor3f(1,1,1);
     glBegin(GL_TRIANGLE_FAN);
+    glTexCoord2f(0,0);
     glVertex2f(x-l,y-a);
+    glTexCoord2f(1,0);
     glVertex2f(x+l,y-a);
+    glTexCoord2f(1,1);
     glVertex2f(x+l,y+a);
-    glVertex2f(x-l,y+a); 
+    glTexCoord2f(0,1);
+    glVertex2f(x-l,y+a);
     glEnd();
-    
+    glDisable(GL_TEXTURE_2D);
+
 
 }
 
 void desenhaBotoes(){
-    glClear(GL_COLOR_BUFFER_BIT);
-    if(botaoAtual == START)
-        glColor3f(0,0,1);
-    else
-        glColor3f(0,0,0);
-    desenhaPersonagem(0,30,20,10);
-    if(botaoAtual == EXIT)
-        glColor3f(0 ,0 ,1);
-    else
-        glColor3f(0,0,0);
-    desenhaPersonagem(0,-30,20,10);
+    desenhaPersonagem(0, -40, 32.5, 15, idTexturaInici);
+
+    desenhaPersonagem(0, -65, 20.5, 10, idTexturaSair);
+
+    if(botaoAtual == START){
+        desenhaPersonagem(0, -40, 32.5, 15, idSTART);
+    }else{
+        desenhaPersonagem(0, -65, 20.5, 10, idEXIT);
+    }
+
 }
+
 
 
 void desenhaMinhaCena(){
@@ -114,32 +128,41 @@ void desenhaMinhaCena(){
     switch(telaAtual){
 
         case(MENU):
+            glClear(GL_COLOR_BUFFER_BIT);
+            desenhaFundo(2,3,4,5, idTexturaMenu);
             desenhaBotoes();
             glutSwapBuffers();
             break;
         case(JOGO):
             glClear(GL_COLOR_BUFFER_BIT);
-            desenhaFundo(2,3,4,5);
+            desenhaFundo(2,3,4,5,idTexturaFundo);
             desenhaJogo();
+            desenhaPersonagem(0, 70, 12, 25, idZeldaNormal);
             glutSwapBuffers();
             break;
         case(PAUSE):
             glColor3f(1,1,1);
-            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "PAUSE - PARA REINICIAR PRESSIONE P", -30,60);  
-            glutSwapBuffers();                                  
+            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "PAUSE - PARA REINICIAR PRESSIONE P", -30,60);
+            glutSwapBuffers();
             break;
         case(CONFIRMA):
             glColor3f(1,1,1);
-            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "DESEJA MESMO SAIR? APERTE S PARA SIM OU N PARA NAO", -50,60);                                    
+            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "DESEJA MESMO SAIR? APERTE S PARA SIM OU N PARA NAO", -50,60);
             glutSwapBuffers();
             break;
         case(VITORIA):
             glClear(GL_COLOR_BUFFER_BIT);
-            glColor3f(0, 0, 0);
-            if(vitoriaLink)
-                escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "VITORIA DO LINK!", -40,80);
-            if(vitoriaGanon)
-                escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "VITORIA DO GANON!", -40,80);
+            desenhaFundo(2,3,4,5,idTexturaFundo);
+            desenhaJogo();
+            if(vitoriaLink){
+                desenhaPersonagem(0,70,link.proporcao.x, link.proporcao.y+5, idZeldaW);
+                desenhaPersonagem(0, 0, 30,30, idVic);
+            }
+            if(vitoriaGanon){
+                desenhaPersonagem(0, 60, 20, 10, idZeldaL1);
+                desenhaPersonagem(0, 0, 50, 30, idLos);
+            }
+
             glutSwapBuffers();
             break;
         default:
@@ -148,7 +171,8 @@ void desenhaMinhaCena(){
 }
 
 void atualizaVelocidade(){
-    
+
+
     GLfloat yb = bola.posicao.y; // y da bola
     GLfloat xb = bola.posicao.x; // x da bola
     GLfloat yl = link.posicao.y; // y do link
@@ -157,20 +181,46 @@ void atualizaVelocidade(){
     GLfloat xg = ganon.posicao.x; // x do ganon
     GLfloat ab = bola.proporcao.y; // altura da bola
     GLfloat lb = bola.proporcao.x; // largura da bola
-    GLfloat al = link.proporcao.y; // altura do link 
+    GLfloat al = link.proporcao.y; // altura do link
     GLfloat ll = link.proporcao.x; // largura do link
     GLfloat ag = ganon.proporcao.y; // altura do ganon
     GLfloat lg = ganon.proporcao.x; // largura do ganon
 
-
     if(yb+ab >= Y_MAXIMO || yb-ab <= Y_MINIMO)
         bola.velocidade.y *= -1;
-    if((xb-lb<=xl+ll) && (yb <= yl+al && yb >= yl-al))
-        bola.velocidade.x *= -1; 
-    if((xb+lb>=xg-lg) && (yb <= yg+ag && yb >= yg-ag))
-        bola.velocidade.x *= -1; 
-
-
+    if(seColisao>10){
+        if((xb-lb<=xl+ll) && (yb-ab <= yl+al && yb+ab >= yl-al)){ //colisao com a frente do link
+            bola.velocidade.x *= -1;
+            xb = xl + lg + 1 - lb;
+            seColisao=0;
+        }
+        if((xb+lb>=xg-lg) && (yb-ab <= yg+ag && yb+ab >= yg-ag)){ //colisao com a frente do ganon
+            bola.velocidade.x *= -1;
+            xb = xg - lg - 1 + lb;
+            seColisao=0;
+        }
+/*        
+        if((xb+lb <= xl+ll && xb-lb >= xl-ll ) && (yb+ab >= yl-al)){ //colisao com baixo do link
+            bola.velocidade.y *= -1;
+            xb = xl + lg + 1 - lb;
+            seColisao=0;
+        }
+        if((xb+lb <= xl+ll && xb-lb >= xl-ll ) && (yb-ab <= yl+al)){ //colisao com cima do link
+            bola.velocidade.y *= -1;
+            xb = xl + lg + 1 - lb;
+            seColisao=0;        
+        }        
+        if((xb+lb <= xg+lg && xb-lb >= xg-lg ) && (yb+ab >= yg-ag)){ //colisao com baixo do ganon
+            bola.velocidade.y *= -1;
+            xb = xg - lg - 1 + lb;
+            seColisao=0;
+        }
+        if((xb+lb <= xg+lg && xb-lb >= xg-lg ) && (yb-ab <= yl+ag)){ //colisao com cima do ganon
+            bola.velocidade.y *= -1;
+            xb = xg - lg - 1 + lb;
+            seColisao=0;
+        }*/
+    }
 }
 
 void atualizaPontuacao(){
@@ -182,12 +232,16 @@ void atualizaPontuacao(){
         PontuacaoGanon++;
         bola.posicao.x=0;
         bola.posicao.y=0;
+        bola.velocidade.x=3.5;
+        bola.velocidade.y=3.5;    
     }
 
     if(xb+lb>=X_MAXIMO && PontuacaoLink<3){
         PontuacaoLink++;
         bola.posicao.x=0;
         bola.posicao.y=0;
+        bola.velocidade.x=3.5;
+        bola.velocidade.y=3.5;
     }
 
     if(PontuacaoLink==3){
@@ -203,11 +257,13 @@ void atualizaPontuacao(){
     if(SetsLink==2){
         vitoriaLink=1;
         telaAtual=VITORIA;
+        bola.posicao.x=5000;
         SetsLink=0;
     }
 
     if(SetsGanon==2){
         vitoriaGanon=1;
+        bola.posicao.x=5000;
         telaAtual=VITORIA;
         SetsGanon=0;
     }
@@ -230,6 +286,15 @@ void atualizaCena(int valorQualquer){
         case(MENU):
             break;
         case(JOGO):
+            if(bola.velocidade.x>0)
+                bola.velocidade.x+=0.01;
+            else
+                bola.velocidade.x-=0.01;
+            if(bola.velocidade.y>0)
+                bola.velocidade.y+=0.01;
+            else
+                bola.velocidade.y-=0.01;
+            seColisao++;
             atualizaPontuacao();
             atualizaVelocidade();
             movimentaPersonagens();
@@ -279,7 +344,7 @@ void teclaPressionada(unsigned char key, int x, int y){
                 default:
                     break;
             }
-            break;      
+            break;
         case(JOGO):
             keyboard[key]=1;
             switch(key){
@@ -309,7 +374,7 @@ void teclaPressionada(unsigned char key, int x, int y){
                     glColor3f(1, 1, 1);
                     escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "1", 5,0);
                     glutSwapBuffers();
-                    sleep(1);                    
+                    sleep(1);
                     telaAtual = JOGO;
                     break;
                 default:
@@ -324,7 +389,7 @@ void teclaPressionada(unsigned char key, int x, int y){
                     inicializa();
                     break;
                 default:
-                    break;    
+                    break;
             }
             break;
         case(CONFIRMA):
@@ -335,15 +400,15 @@ void teclaPressionada(unsigned char key, int x, int y){
                     glColor3f(1, 1, 1);
                     escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "3", -5,0);
                     glutSwapBuffers();
-                    sleep(1);
+
                     glColor3f(1, 1, 1);
                     escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "2", 0,0);
                     glutSwapBuffers();
-                    sleep(1);
+
                     glColor3f(1, 1, 1);
                     escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "1", 5,0);
                     glutSwapBuffers();
-                    sleep(1);                    
+
                     telaAtual = JOGO;
                     break;
             }
@@ -351,7 +416,7 @@ void teclaPressionada(unsigned char key, int x, int y){
         default:
             break;
     }
-        
+
 }
 
 void teclaLiberada(unsigned char key, int x, int y){
@@ -365,7 +430,7 @@ int main(int argc, char** argv){
     glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutInitWindowSize(1600, 900);
+    glutInitWindowSize(1300, 1260);
     glutInitWindowPosition(200, 100);
 
     glutCreateWindow(" ");

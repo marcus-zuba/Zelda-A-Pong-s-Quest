@@ -35,21 +35,21 @@ void inicializa(){
     glEnable(GL_BLEND );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    idTexturaFundo = carregaTextura("C:/Users/felip/TP1-CG/TP1/fundo.png");
-    idTexturaMenu = carregaTextura("C:/Users/felip/TP1-CG/TP1/back_menu.png");
-    idTexturaInici = carregaTextura("C:/Users/felip/TP1-CG/TP1/botao_iniciar.png");
-    idTexturaSair = carregaTextura("C:/Users/felip/TP1-CG/TP1/botao_exit.png");
-    idLink = carregaTextura("C:/Users/felip/TP1-CG/TP1/Link.png");
-    idGanon = carregaTextura("C:/Users/felip/TP1-CG/TP1/ganons.png");
-    idBola = carregaTextura("C:/Users/felip/TP1-CG/TP1/bola.png");
-    idSTART = carregaTextura("C:/Users/felip/TP1-CG/TP1/botao_iniciarSE.png");
-    idEXIT = carregaTextura("C:/Users/felip/TP1-CG/TP1/botao_exitSE.png");
-    idZeldaNormal = carregaTextura("C:/Users/felip/TP1-CG/TP1/zelda_0.png");
-    idZeldaW = carregaTextura("C:/Users/felip/TP1-CG/TP1/zelda_1.png");
-    idZeldaL0 = carregaTextura("C:/Users/felip/TP1-CG/TP1/zelda_2.png");
-    idZeldaL1 = carregaTextura("C:/Users/felip/TP1-CG/TP1/zelda_3.png");
-    idLos = carregaTextura("C:/Users/felip/TP1-CG/TP1/victoryGanon.png");
-    idVic = carregaTextura("C:/Users/felip/TP1-CG/TP1/victory.png");
+    idTexturaFundo = carregaTextura("fundo.png");
+    idTexturaMenu = carregaTextura("back_menu.png");
+    idTexturaInici = carregaTextura("botao_iniciar.png");
+    idTexturaSair = carregaTextura("botao_exit.png");
+    idLink = carregaTextura("Link.png");
+    idGanon = carregaTextura("ganons.png");
+    idBola = carregaTextura("bola.png");
+    idSTART = carregaTextura("botao_iniciarSE.png");
+    idEXIT = carregaTextura("botao_exitSE.png");
+    idZeldaNormal = carregaTextura("zelda_0.png");
+    idZeldaW = carregaTextura("zelda_1.png");
+    idZeldaL0 = carregaTextura("zelda_2.png");
+    idZeldaL1 = carregaTextura("zelda_3.png");
+    idLos = carregaTextura("victoryGanon.png");
+    idVic = carregaTextura("victory.png");
 
     botaoAtual = START;
 }

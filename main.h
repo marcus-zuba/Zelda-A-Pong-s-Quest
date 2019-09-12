@@ -3,8 +3,8 @@
 
 void escrevePontuacao(void * , int , float , float );
 void escreveSet(void * , int , float , float );
-void desenhaPersonagem(float , float , float , float );
-void desenhaBola(float , float , float , float );
+void desenhaPersonagem(float , float , float , float , GLuint);
+void desenhaBola(float , float , float , float , GLuint);
 GLuint carregaTextura(const char* );
 
 
