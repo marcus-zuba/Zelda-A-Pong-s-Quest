@@ -93,13 +93,13 @@ void animaPersonagem(float x, float y, float l, float a, struct sprite personage
     glBindTexture(GL_TEXTURE_2D, personagem.idTextura);
     glColor3f(1,1,1);
     glBegin(GL_TRIANGLE_FAN);
-    glTexCoord2f(personagem.quadroAtual/3.0,0);
+    glTexCoord2f(personagem.quadroAtual/personagem.quadrosHorizontais,0);
     glVertex2f(x-l,y-a);
-    glTexCoord2f((personagem.quadroAtual/3.0)+0.333,0);
+    glTexCoord2f((personagem.quadroAtual/personagem.quadrosHorizontais)+1/personagem.quadrosHorizontais,0);
     glVertex2f(x+l,y-a);
-    glTexCoord2f((personagem.quadroAtual/3.0)+0.333,1);
+    glTexCoord2f((personagem.quadroAtual/personagem.quadrosHorizontais)+1/personagem.quadrosHorizontais,1);
     glVertex2f(x+l,y+a);
-    glTexCoord2f(personagem.quadroAtual/3.0,1);
+    glTexCoord2f(personagem.quadroAtual/personagem.quadrosHorizontais,1);
     glVertex2f(x-l,y+a);
     glEnd();
     glDisable(GL_TEXTURE_2D);
@@ -212,12 +212,13 @@ void atualizaVelocidade(){
             bola.velocidade.x *= -1;
             xb = xl + lg + 1 - lb;
             seColisao=0;
-            linkAtacando=1;
+            linkAtual=ATACANDO;
         }
         if((xb+lb>=xg-lg) && (yb-ab <= yg+ag && yb+ab >= yg-ag)){ //colisao com a frente do ganon
             bola.velocidade.x *= -1;
             xb = xg - lg - 1 + lb;
             seColisao=0;
+            ganonAtual=ATACANDO;
         }
 /*        
         if((xb+lb <= xl+ll && xb-lb >= xl-ll ) && (yb+ab >= yl-al)){ //colisao com baixo do link
@@ -289,17 +290,21 @@ void atualizaPontuacao(){
 }
 
 void movimentaPersonagens(){
-    if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO))
+    if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO)){
         link.posicao.y+=velocidadeLink;
-    if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO))
+    }
+    
+    else if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO)){
         link.posicao.y-=velocidadeLink;
-    if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO))
+    }
+    else if(linkAtual!=ATACANDO)
+        linkAtual=PARADO;
+    if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO)){
         ganon.posicao.y+=velocidadeGanon;
-    if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO))
+    }
+    else if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO)){
         ganon.posicao.y-=velocidadeGanon;
-
-    ganon.posicao.y=bola.posicao.y;
-    link.posicao.y=bola.posicao.y;
+    }
 }
 
 void atualizaCena(int valorQualquer){

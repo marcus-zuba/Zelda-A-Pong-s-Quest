@@ -12,14 +12,18 @@ int velocidadeGanon;
 int seColisao;
 int tempoBola;
 int linkAtacando;
+int ganonAtacando;
 int linkVoltando;
 int timerAtaca;
 
 enum Tela {MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
 enum Botao {START, EXIT};
+enum Personagem {PARADO, CIMA, BAIXO, ATACANDO, COMEMORANDO};
 
 enum Tela telaAtual;
 enum Botao botaoAtual;
+enum Personagem linkAtual;
+enum Personagem ganonAtual;
 
 struct vetor2d{
   GLfloat x, y;
@@ -33,7 +37,7 @@ struct sprite{
 
     GLint idTextura;  // id da textura utilizada
 
-    GLint quadrosHorizontais;  // quantidade de quadros H
+    GLfloat quadrosHorizontais;  // quantidade de quadros H
 
     GLfloat quadroAtual;  // número do quadro atual
 };
@@ -45,7 +49,9 @@ struct sprite bola;
 struct vetor2d posicaoMouse;
 struct vetor2d cMouse;
 struct sprite ataqueLink;
-
+struct sprite ataqueGanon;
+struct sprite andaLink;
+struct sprite andaGanon;
 
 int keyboard[256];
 
