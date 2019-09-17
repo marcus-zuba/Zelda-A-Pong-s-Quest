@@ -7,26 +7,41 @@
 #include "inicializa.h"
 
 void desenhaLink(){
+    int tempoAnda=0;
     switch(linkAtual){
 
         case(PARADO):
             if(linkCima){
-                if(andaLink.quadroAtual<3)
+                if(andaLink.quadroAtual<3/* && tempoAnda>1*/){
                     andaLink.quadroAtual=3;
-                else if(andaLink.quadroAtual <5)
+                //    tempoAnda=0;
+                }
+                else if(andaLink.quadroAtual <5/* && tempoAnda>1*/){
                     andaLink.quadroAtual++;
-                else if(andaLink.quadroAtual==5)
+                //    tempoAnda=0;
+                }    
+                else if(andaLink.quadroAtual==5/* && tempoAnda>1*/){
                     andaLink.quadroAtual=3;
+                //    tempoAnda=0;
+                }
+                //tempoAnda++;
                 animaPersonagem(link.posicao.x-10,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
             }
             else if(linkBaixo){
-                if(andaLink.quadroAtual>2)
+                if(andaLink.quadroAtual>2/* && tempoAnda>3*/){
                     andaLink.quadroAtual=0;
-                else if(andaLink.quadroAtual <2)
+                    //tempoAnda=0;
+                }
+                else if(andaLink.quadroAtual<2/* && tempoAnda>3*/){
                     andaLink.quadroAtual++;
-                else if(andaLink.quadroAtual==2)
+                    //tempoAnda=0;
+                }    
+                else if(andaLink.quadroAtual==2/* && tempoAnda>3*/){
                     andaLink.quadroAtual=0;
-                animaPersonagem(link.posicao.x-10,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
+                    //tempoAnda=0;
+                }
+                animaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
+                //tempoAnda++;
             }
             else 
                 animaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x+5, link.proporcao.y, ataqueLink);
