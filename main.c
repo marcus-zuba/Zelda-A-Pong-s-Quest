@@ -22,11 +22,9 @@ GLuint carregaTextura(const char* arquivo) {
                            SOIL_CREATE_NEW_ID,
                            SOIL_FLAG_INVERT_Y
                        );
-
     if (idTextura == 0) {
         printf("Erro do SOIL: '%s'\n", SOIL_last_result());
     }
-
     return idTextura;
 }
 
@@ -85,8 +83,29 @@ void desenhaPersonagem(float x, float y, float l, float a, GLuint idTextura){ //
     glTexCoord2f(0,1);
     glVertex2f(x-l,y+a);
     glEnd();
+    glDisable(GL_TEXTURE_2D);
 
 }
+
+void animaPersonagem(float x, float y, float l, float a, struct sprite personagem){ // x, y, largura, altura
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, personagem.idTextura);
+    glColor3f(1,1,1);
+    glBegin(GL_TRIANGLE_FAN);
+    glTexCoord2f(personagem.quadroAtual/3.0,0);
+    glVertex2f(x-l,y-a);
+    glTexCoord2f((personagem.quadroAtual/3.0)+0.333,0);
+    glVertex2f(x+l,y-a);
+    glTexCoord2f((personagem.quadroAtual/3.0)+0.333,1);
+    glVertex2f(x+l,y+a);
+    glTexCoord2f(personagem.quadroAtual/3.0,1);
+    glVertex2f(x-l,y+a);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+
+}
+
 
 void desenhaBola(float x, float y, float l, float a, GLuint idTextura){ // x, y, largura, altura
 
@@ -189,10 +208,11 @@ void atualizaVelocidade(){
     if(yb+ab >= Y_MAXIMO || yb-ab <= Y_MINIMO)
         bola.velocidade.y *= -1;
     if(seColisao>10){
-        if((xb-lb<=xl+ll) && (yb-ab <= yl+al && yb+ab >= yl-al)){ //colisao com a frente do link
+        if((xb-lb<=xl+ll-8) && (yb-ab <= yl+al && yb+ab >= yl-al)){ //colisao com a frente do link
             bola.velocidade.x *= -1;
             xb = xl + lg + 1 - lb;
             seColisao=0;
+            linkAtacando=1;
         }
         if((xb+lb>=xg-lg) && (yb-ab <= yg+ag && yb+ab >= yg-ag)){ //colisao com a frente do ganon
             bola.velocidade.x *= -1;
@@ -232,16 +252,14 @@ void atualizaPontuacao(){
         PontuacaoGanon++;
         bola.posicao.x=0;
         bola.posicao.y=0;
-        bola.velocidade.x=3.5;
-        bola.velocidade.y=3.5;    
+        tempoBola=0;    
     }
 
     if(xb+lb>=X_MAXIMO && PontuacaoLink<3){
         PontuacaoLink++;
         bola.posicao.x=0;
         bola.posicao.y=0;
-        bola.velocidade.x=3.5;
-        bola.velocidade.y=3.5;
+        tempoBola=0;
     }
 
     if(PontuacaoLink==3){
@@ -279,6 +297,9 @@ void movimentaPersonagens(){
         ganon.posicao.y+=velocidadeGanon;
     if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO))
         ganon.posicao.y-=velocidadeGanon;
+
+    ganon.posicao.y=bola.posicao.y;
+    link.posicao.y=bola.posicao.y;
 }
 
 void atualizaCena(int valorQualquer){
@@ -286,15 +307,26 @@ void atualizaCena(int valorQualquer){
         case(MENU):
             break;
         case(JOGO):
-            if(bola.velocidade.x>0)
-                bola.velocidade.x+=0.01;
-            else
-                bola.velocidade.x-=0.01;
-            if(bola.velocidade.y>0)
-                bola.velocidade.y+=0.01;
-            else
-                bola.velocidade.y-=0.01;
+            tempoBola++;
             seColisao++;
+            if(tempoBola<50){
+                bola.velocidade.x=0;
+                bola.velocidade.y=0;
+            }
+            else{
+                if(tempoBola==50){
+                    bola.velocidade.x=3.0;
+                    bola.velocidade.y=3.0;
+                }
+                if(bola.velocidade.x>0)
+                    bola.velocidade.x+=0.01;
+                else
+                    bola.velocidade.x-=0.01;
+                if(bola.velocidade.y>0)
+                    bola.velocidade.y+=0.01;
+                else
+                    bola.velocidade.y-=0.01;
+            }
             atualizaPontuacao();
             atualizaVelocidade();
             movimentaPersonagens();
@@ -310,6 +342,7 @@ void atualizaCena(int valorQualquer){
     }
 
     glutPostRedisplay();
+
     glutTimerFunc(33, atualizaCena, 0);
 }
 

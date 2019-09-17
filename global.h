@@ -10,6 +10,10 @@ int vitoriaGanon;
 int velocidadeLink;
 int velocidadeGanon;
 int seColisao;
+int tempoBola;
+int linkAtacando;
+int linkVoltando;
+int timerAtaca;
 
 enum Tela {MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
 enum Botao {START, EXIT};
@@ -30,9 +34,8 @@ struct sprite{
     GLint idTextura;  // id da textura utilizada
 
     GLint quadrosHorizontais;  // quantidade de quadros H
-    GLint quadrosVerticais;   // quantidade de quadros V
 
-    GLint quadroAtual;  // número do quadro atual
+    GLfloat quadroAtual;  // número do quadro atual
 };
 
 
@@ -41,6 +44,7 @@ struct sprite ganon;
 struct sprite bola;
 struct vetor2d posicaoMouse;
 struct vetor2d cMouse;
+struct sprite ataqueLink;
 
 
 int keyboard[256];
@@ -60,5 +64,6 @@ GLuint idZeldaL0;
 GLuint idZeldaL1;
 GLint idVic;
 GLint idLos;
+GLfloat angulobola;
 
 #endif

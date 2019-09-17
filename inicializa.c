@@ -33,6 +33,8 @@ void inicializa(){
     velocidadeLink=10;
     velocidadeGanon=10;
     seColisao=100;
+    tempoBola=50;
+    linkAtacando=0;
 
     glEnable(GL_BLEND );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -43,7 +45,7 @@ void inicializa(){
     idTexturaSair = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_exit.png");
     idLink = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Link.png");
     idGanon = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Ganons.png");
-    idBola = carregaTextura("/home/marcus/CG/TP1/TP1-CG/bola.png");
+    bola.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/bola.png");
     idSTART = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_iniciarSE.png");
     idEXIT = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_exitSE.png");
     idZeldaNormal = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zelda_0.png");
@@ -52,6 +54,9 @@ void inicializa(){
     idZeldaL1 = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zelda_3.png");
     idLos = carregaTextura("/home/marcus/CG/TP1/TP1-CG/victoryGanon.png");
     idVic = carregaTextura("/home/marcus/CG/TP1/TP1-CG/victory.png");
-
+    ataqueLink.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Link_Ataca.png");
+    ataqueLink.quadrosHorizontais=3;
+    ataqueLink.quadroAtual=0;
+    bola.quadroAtual=1;
     botaoAtual = START;
 }
