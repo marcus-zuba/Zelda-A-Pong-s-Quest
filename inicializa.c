@@ -21,8 +21,8 @@ void inicializa(){
     bola.velocidade.x=3.5;
     bola.velocidade.y=3.5;
     glColor3f(1,1,1);
-    bola.proporcao.x=8;
-    bola.proporcao.y=7;
+    bola.proporcao.x=4.5;
+    bola.proporcao.y=2.8;
     telaAtual = MENU;
     PontuacaoLink=0;
     PontuacaoGanon=0;
@@ -30,7 +30,7 @@ void inicializa(){
     SetsGanon=0;
     vitoriaGanon=0;
     vitoriaLink=0;
-    velocidadeLink=10;
+    velocidadeLink=6;
     velocidadeGanon=10;
     seColisao=100;
     tempoBola=50;
@@ -46,7 +46,9 @@ void inicializa(){
     idTexturaSair = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_exit.png");
     idLink = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Link.png");
     idGanon = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Ganons.png");
-    idBola = carregaTextura("/home/marcus/CG/TP1/TP1-CG/bola.png");
+    bola.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/bolaf.png");
+    bola.quadrosHorizontais=3;
+    bola.quadroAtual=1;
     idSTART = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_iniciarSE.png");
     idEXIT = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_exitSE.png");
     idZeldaNormal = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zelda_0.png");
@@ -65,6 +67,8 @@ void inicializa(){
     andaGanon.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/ganon_sprite_mov.png");
     andaLink.quadrosHorizontais=6;
     andaGanon.quadrosHorizontais=4;
+    andaLink.quadroAtual=0;
+    andaGanon.quadroAtual=0;
 
     botaoAtual = START;
 }

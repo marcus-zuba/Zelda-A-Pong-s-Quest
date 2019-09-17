@@ -10,7 +10,26 @@ void desenhaLink(){
     switch(linkAtual){
 
         case(PARADO):
-            animaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x+5, link.proporcao.y, ataqueLink);
+            if(linkCima){
+                if(andaLink.quadroAtual<3)
+                    andaLink.quadroAtual=3;
+                else if(andaLink.quadroAtual <5)
+                    andaLink.quadroAtual++;
+                else if(andaLink.quadroAtual==5)
+                    andaLink.quadroAtual=3;
+                animaPersonagem(link.posicao.x-10,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
+            }
+            else if(linkBaixo){
+                if(andaLink.quadroAtual>2)
+                    andaLink.quadroAtual=0;
+                else if(andaLink.quadroAtual <2)
+                    andaLink.quadroAtual++;
+                else if(andaLink.quadroAtual==2)
+                    andaLink.quadroAtual=0;
+                animaPersonagem(link.posicao.x-10,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
+            }
+            else 
+                animaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x+5, link.proporcao.y, ataqueLink);
             break;
         case(ATACANDO):
             animaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x+5, link.proporcao.y, ataqueLink);
@@ -31,12 +50,6 @@ void desenhaLink(){
                 timerAtaca=0;
             }
             break;
-//        case(CIMA):
-//            animaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
-//            break;
-
-
-
 
     }
 }
@@ -44,7 +57,26 @@ void desenhaLink(){
 void desenhaGanon(){
     switch(ganonAtual){
         case(PARADO):
-            desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y, idGanon);
+            if(ganonCima){
+                if(andaGanon.quadroAtual<2)
+                    andaGanon.quadroAtual=2;
+                else if(andaGanon.quadroAtual <3)
+                    andaGanon.quadroAtual++;
+                else if(andaGanon.quadroAtual==3)
+                    andaGanon.quadroAtual=2;
+                animaPersonagem(ganon.posicao.x,ganon.posicao.y,ganon.proporcao.x, ganon.proporcao.y, andaGanon);
+            }
+            else if(ganonBaixo){
+                if(andaGanon.quadroAtual>1)
+                    andaGanon.quadroAtual=0;
+                else if(andaGanon.quadroAtual <1)
+                    andaGanon.quadroAtual++;
+                else if(andaGanon.quadroAtual==1)
+                    andaGanon.quadroAtual=0;
+                animaPersonagem(ganon.posicao.x,ganon.posicao.y,ganon.proporcao.x, ganon.proporcao.y, andaGanon);
+            }
+            else
+                desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y, idGanon);
             break;
         case(ATACANDO):
             animaPersonagem(ganon.posicao.x,ganon.posicao.y,ganon.proporcao.x, ganon.proporcao.y, ataqueGanon);
@@ -71,7 +103,7 @@ void desenhaJogo(){
     glPushMatrix();
     glTranslatef(bola.posicao.x,bola.posicao.y,0);
     glRotatef(angulobola+=3*bola.velocidade.x,0,0,1);
-    desenhaBola(0, 0,bola.proporcao.x,bola.proporcao.y, idBola);
+    animaPersonagem(0, 0,bola.proporcao.x,bola.proporcao.y, bola);
     glPopMatrix();
 
 }

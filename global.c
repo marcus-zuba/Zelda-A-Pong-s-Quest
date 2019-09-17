@@ -15,10 +15,14 @@ int linkAtacando;
 int ganonAtacando;
 int linkVoltando=0;
 int timerAtaca=0;
+int linkCima=0;
+int linkBaixo=0;
+int ganonCima=0;
+int ganonBaixo=0;
 
 enum Tela {MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
 enum Botao {START, EXIT};
-enum Personagem {PARADO, CIMA, BAIXO, ATACANDO, COMEMORANDO};
+enum Personagem {PARADO, ATACANDO, COMEMORANDO};
 
 
 enum Tela telaAtual;

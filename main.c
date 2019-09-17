@@ -107,7 +107,7 @@ void animaPersonagem(float x, float y, float l, float a, struct sprite personage
 }
 
 
-void desenhaBola(float x, float y, float l, float a, GLuint idTextura){ // x, y, largura, altura
+/*void desenhaBola(float x, float y, float l, float a, GLuint idTextura){ // x, y, largura, altura
 
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, idTextura);
@@ -125,7 +125,7 @@ void desenhaBola(float x, float y, float l, float a, GLuint idTextura){ // x, y,
     glDisable(GL_TEXTURE_2D);
 
 
-}
+}*/
 
 void desenhaBotoes(){
     desenhaPersonagem(0, -40, 32.5, 15, idTexturaInici);
@@ -213,12 +213,14 @@ void atualizaVelocidade(){
             xb = xl + lg + 1 - lb;
             seColisao=0;
             linkAtual=ATACANDO;
+            bola.quadroAtual=2;
         }
         if((xb+lb>=xg-lg) && (yb-ab <= yg+ag && yb+ab >= yg-ag)){ //colisao com a frente do ganon
             bola.velocidade.x *= -1;
             xb = xg - lg - 1 + lb;
             seColisao=0;
             ganonAtual=ATACANDO;
+            bola.quadroAtual=0;
         }
 /*        
         if((xb+lb <= xl+ll && xb-lb >= xl-ll ) && (yb+ab >= yl-al)){ //colisao com baixo do link
@@ -253,7 +255,8 @@ void atualizaPontuacao(){
         PontuacaoGanon++;
         bola.posicao.x=0;
         bola.posicao.y=0;
-        tempoBola=0;    
+        tempoBola=0;  
+        bola.quadroAtual=1;
     }
 
     if(xb+lb>=X_MAXIMO && PontuacaoLink<3){
@@ -261,6 +264,7 @@ void atualizaPontuacao(){
         bola.posicao.x=0;
         bola.posicao.y=0;
         tempoBola=0;
+        bola.quadroAtual=1;
     }
 
     if(PontuacaoLink==3){
@@ -290,21 +294,26 @@ void atualizaPontuacao(){
 }
 
 void movimentaPersonagens(){
-    if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO)){
+    if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO) /*&& linkAtual==PARADO*/){
         link.posicao.y+=velocidadeLink;
+//        linkAtual=CIMA;
     }
-    
-    else if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO)){
+    else if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO) /*&& linkAtual==PARADO*/){
         link.posicao.y-=velocidadeLink;
+//        linkAtual=BAIXO;
     }
-    else if(linkAtual!=ATACANDO)
-        linkAtual=PARADO;
-    if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO)){
+//    else if(linkAtual==CIMA || linkAtual==BAIXO)
+//        linkAtual=PARADO;
+    if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO)/* && ganonAtual==PARADO*/){
         ganon.posicao.y+=velocidadeGanon;
+//        ganonAtual=CIMA;
     }
-    else if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO)){
+    else if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO)/* && ganonAtual==PARADO*/){
         ganon.posicao.y-=velocidadeGanon;
+//        ganonAtual=BAIXO;
     }
+//    else if(ganonAtual==CIMA || ganonAtual==BAIXO)
+//        ganonAtual=PARADO;
 }
 
 void atualizaCena(int valorQualquer){
@@ -394,6 +403,18 @@ void teclaPressionada(unsigned char key, int x, int y){
                     telaAtual = PAUSE;
                     glutPostRedisplay();
                     break;
+                case('w'):
+                    linkCima=1;
+                    break;
+                case('s'):
+                    linkBaixo=1;
+                    break;
+                case('o'):
+                    ganonCima=1;
+                    break;
+                case('l'):
+                    ganonBaixo=1;
+                    break;
                 default:
                     break;
             }
@@ -459,6 +480,24 @@ void teclaPressionada(unsigned char key, int x, int y){
 
 void teclaLiberada(unsigned char key, int x, int y){
     keyboard[key]=0;
+    switch(telaAtual){
+        case(JOGO):
+            switch(key){
+                case('w'):
+                    linkCima=0;
+                    break;
+                case('s'):
+                    linkBaixo=0;
+                    break;
+                case('o'):
+                    ganonCima=0;
+                    break;
+                case('l'):
+                    ganonBaixo=0;
+                    break;
+            }
+            break;
+    }
 }
 
 int main(int argc, char** argv){
