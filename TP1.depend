@@ -366,3 +366,43 @@
 	<_mingw.h>
 	<stddef.h>
 
+1568928211 source:c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\desenhajogo.c
+	<math.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<string.h>
+	"global.h"
+	"main.h"
+	"inicializa.h"
+
+1568859238 c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\global.h
+
+1568727016 c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\main.h
+
+1567994983 c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\inicializa.h
+
+1568859238 source:c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\global.c
+	<GL/glew.h>
+	<GL/freeglut.h>
+
+1568928295 source:c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\inicializa.c
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<SOIL/SOIL.h>
+	"main.h"
+	"global.h"
+
+1568926228 source:c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\main.c
+	<SOIL/SOIL.h>
+	<math.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<string.h>
+	<stdio.h>
+	<time.h>
+	"desenhajogo.h"
+	"global.h"
+	"inicializa.h"
+
+1567689403 c:\users\felip\desktop\materiais de matérias\cg\tp1\último push\desenhajogo.h
+
