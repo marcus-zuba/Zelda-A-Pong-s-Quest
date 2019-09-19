@@ -31,7 +31,7 @@ float tempoCristal=0;
 float timerGanonAnda=0;
 float timerLinkAnda =0;
 
-enum Tela {MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
+enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
 enum Botao {START, EXIT};
 enum Personagem {PARADO, ATACANDO, COMEMORANDO};
 

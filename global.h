@@ -32,7 +32,7 @@ float timerGanonAnda;
 float timerLinkAnda;
 
 
-enum Tela {MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
+enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
 enum Botao {START, EXIT};
 enum Personagem {PARADO, ATACANDO, COMEMORANDO};
 
@@ -40,6 +40,7 @@ enum Tela telaAtual;
 enum Botao botaoAtual;
 enum Personagem linkAtual;
 enum Personagem ganonAtual;
+
 
 struct vetor2d{
   GLfloat x, y;

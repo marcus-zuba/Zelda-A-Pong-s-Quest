@@ -42,64 +42,64 @@ void inicializa(){
     glEnable(GL_BLEND );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    idTexturaFundo = carregaTextura("C:/Users/felip/TP1-CG/fundo3.png");
-    idTexturaFundo2 = carregaTextura("C:/Users/felip/TP1-CG/fundo2.png");
-    idTexturaFundo3 = carregaTextura("C:/Users/felip/TP1-CG/fundo3.png");
-    idTexturaFundo4 = carregaTextura("C:/Users/felip/TP1-CG/fundo4.png");
-    idTexturaMenu = carregaTextura("C:/Users/felip/TP1-CG//back_menu.png");
-    idTexturaInici = carregaTextura("C:/Users/felip/TP1-CG/botao_iniciar.png");
-    idTexturaSair = carregaTextura("C:/Users/felip/TP1-CG/botao_exit.png");
-    idLink = carregaTextura("C:/Users/felip/TP1-CG/Link.png");
-    idGanon = carregaTextura("C:/Users/felip/TP1-CG/Ganons.png");
-    idSTART = carregaTextura("C:/Users/felip/TP1-CG/botao_iniciarSE.png");
-    idEXIT = carregaTextura("C:/Users/felip/TP1-CG/botao_exitSE.png");
-    idZeldaNormal = carregaTextura("C:/Users/felip/TP1-CG/zelda_0.png");
-    idZeldaW = carregaTextura("C:/Users/felip/TP1-CG/zelda_1.png");
-    idZeldaL0 = carregaTextura("C:/Users/felip/TP1-CG/1411x274.png");
-    idZeldaL1 = carregaTextura("C:/Users/felip/TP1-CG/1411x362.png");
-    idLos = carregaTextura("C:/Users/felip/TP1-CG/victoryGanon.png");
-    idVic = carregaTextura("C:/Users/felip/TP1-CG/victory.png");
-    idMar = carregaTextura("C:/Users/felip/TP1-CG/1411x274.png");
-    idCeu = carregaTextura("C:/Users/felip/TP1-CG/1411x362.png");
+    idTexturaFundo = carregaTextura("/home/marcus/CG/TP1/TP1-CG/fundo4.png");
+    idTexturaFundo2 = carregaTextura("/home/marcus/CG/TP1/TP1-CG/fundo2.png");
+    idTexturaFundo3 = carregaTextura("/home/marcus/CG/TP1/TP1-CG/fundo3.png");
+    idTexturaFundo4 = carregaTextura("/home/marcus/CG/TP1/TP1-CG/fundo4.png");
+    idTexturaMenu = carregaTextura("/home/marcus/CG/TP1/TP1-CG//back_menu.png");
+    idTexturaInici = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_iniciar.png");
+    idTexturaSair = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_exit.png");
+    idLink = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Link.png");
+    idGanon = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Ganons.png");
+    idSTART = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_iniciarSE.png");
+    idEXIT = carregaTextura("/home/marcus/CG/TP1/TP1-CG/botao_exitSE.png");
+    idZeldaNormal = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zelda_0.png");
+    idZeldaW = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zelda_1.png");
+    idZeldaL0 = carregaTextura("/home/marcus/CG/TP1/TP1-CG/1411x274.png");
+    idZeldaL1 = carregaTextura("/home/marcus/CG/TP1/TP1-CG/1411x362.png");
+    idLos = carregaTextura("/home/marcus/CG/TP1/TP1-CG/victoryGanon.png");
+    idVic = carregaTextura("/home/marcus/CG/TP1/TP1-CG/victory.png");
+    idMar = carregaTextura("/home/marcus/CG/TP1/TP1-CG/1411x274.png");
+    idCeu = carregaTextura("/home/marcus/CG/TP1/TP1-CG/1411x362.png");
 
-    ZeldaPresa.idTextura = carregaTextura("C:/Users/felip/TP1-CG/ZeldaPresas.png");
+    ZeldaPresa.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zeldaPresas.png");
     ZeldaPresa.quadrosHorizontais =14;
     ZeldaPresa.quadroAtual=0;
 
-    ZeldaPresaL.idTextura = carregaTextura("C:/Users/felip/TP1-CG/ZeldaPresa1.png");
+    ZeldaPresaL.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zeldaPresa1.png");
     ZeldaPresaL.quadrosHorizontais =14;
     ZeldaPresaL.quadroAtual=0;
 
-    ZeldaPresaW.idTextura = carregaTextura("C:/Users/felip/TP1-CG/ZeldaPresa2.png");
+    ZeldaPresaW.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/zeldaPresa2.png");
     ZeldaPresaW.quadrosHorizontais =14;
     ZeldaPresaW.quadroAtual=0;
 
 
-    bola.idTextura = carregaTextura("C:/Users/felip/TP1-CG/bolaf.png");
+    bola.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/bolaf.png");
     bola.quadrosHorizontais=3;
     bola.quadroAtual=1;
 
-    ataqueLink.idTextura = carregaTextura("C:/Users/felip/TP1-CG//Link_Ataca.png");
+    ataqueLink.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG//Link_Ataca.png");
     ataqueLink.quadrosHorizontais=3;
     ataqueLink.quadroAtual=0;
 
-    ataqueGanon.idTextura = carregaTextura("C:/Users/felip/TP1-CG/g2.png");
+    ataqueGanon.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/g2.png");
     ataqueGanon.quadrosHorizontais=3;
     ataqueGanon.quadroAtual=2;
 
-    andaLink.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Link_Moveo.png");
+    andaLink.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/Link_Moveo.png");
     andaLink.quadrosHorizontais=6;
     andaLink.quadroAtual=0;
 
-    andaGanon.idTextura = carregaTextura("C:/Users/felip/TP1-CG/ganon_sprite_mov.png");
+    andaGanon.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/ganon_sprite_mov.png");
     andaGanon.quadrosHorizontais=4;
     andaGanon.quadroAtual=0;
 
-    fundomenu.idTextura = carregaTextura("C:/Users/felip/TP1-CG/anima_menu.png");
+    fundomenu.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/anima_menu.png");
     fundomenu.quadrosHorizontais=2;
     fundomenu.quadroAtual=0;
 
-    logo.idTextura = carregaTextura("C:/Users/felip/TP1-CG/fade_logos.png");
+    logo.idTextura = carregaTextura("/home/marcus/CG/TP1/TP1-CG/fade_logos.png");
     logo.quadrosHorizontais =4;
     logo.quadroAtual=0;
 

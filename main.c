@@ -146,6 +146,14 @@ void desenhaMinhaCena(){
 
     switch(telaAtual){
 
+        case(INTRO):
+
+
+
+            break;
+        case(ESCOLHA):
+
+            break;
         case(MENU):
             glClear(GL_COLOR_BUFFER_BIT);
 
@@ -387,6 +395,12 @@ void movimentaPersonagens(){
 
 void atualizaCena(int valorQualquer){
     switch(telaAtual){
+        case(INTRO):
+
+            break;
+        case(ESCOLHA): 
+
+            break;
         case(MENU):
             break;
         case(JOGO):
@@ -487,6 +501,8 @@ void teclaPressionada(unsigned char key, int x, int y){
                 case('o'):
                     ganonCima=1;
                     break;
+int ganonCima=0;
+int ganonBaixo=0;
                 case('l'):
                     ganonBaixo=1;
                     break;
@@ -511,6 +527,8 @@ void teclaPressionada(unsigned char key, int x, int y){
                     //sleep(1);
                     telaAtual = JOGO;
                     break;
+int ganonCima=0;
+int ganonBaixo=0;
                 default:
                     break;
             }
