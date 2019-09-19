@@ -19,6 +19,17 @@ int linkCima;
 int linkBaixo;
 int ganonCima;
 int ganonBaixo;
+int MarX;
+int MarX2;
+int CeuX;
+int CeuX2;
+int MarI;
+int CeuI;
+float tempoLogo;
+float timerLogo;
+float tempoCristal;
+float timerGanonAnda;
+float timerLinkAnda;
 
 
 enum Tela {MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
@@ -57,10 +68,18 @@ struct sprite ataqueLink;
 struct sprite ataqueGanon;
 struct sprite andaLink;
 struct sprite andaGanon;
+struct sprite logo;
+struct sprite fundomenu;
+struct sprite ZeldaPresa;
+struct sprite ZeldaPresaW;
+struct sprite ZeldaPresaL;
 
 int keyboard[256];
 
 GLuint idTexturaFundo;
+GLuint idTexturaFundo2;
+GLuint idTexturaFundo3;
+GLuint idTexturaFundo4;
 GLuint idTexturaMenu;
 GLuint idTexturaInici;
 GLuint idTexturaSair;
@@ -76,5 +95,7 @@ GLuint idZeldaL1;
 GLint idVic;
 GLint idLos;
 GLfloat angulobola;
+GLuint idMar;
+GLuint idCeu;
 
 #endif

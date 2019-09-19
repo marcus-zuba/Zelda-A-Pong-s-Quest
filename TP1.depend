@@ -322,3 +322,47 @@
 
 1567994983 c:\users\felip\tp1-cg\tp1\inicializa.h
 
+1568928211 source:c:\users\felip\tp1-cg\desenhajogo.c
+	<math.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<string.h>
+	"global.h"
+	"main.h"
+	"inicializa.h"
+
+1568859238 c:\users\felip\tp1-cg\global.h
+
+1568727016 c:\users\felip\tp1-cg\main.h
+
+1567994983 c:\users\felip\tp1-cg\inicializa.h
+
+1568859238 source:c:\users\felip\tp1-cg\global.c
+	<GL/glew.h>
+	<GL/freeglut.h>
+
+1568927361 source:c:\users\felip\tp1-cg\inicializa.c
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<SOIL/SOIL.h>
+	"main.h"
+	"global.h"
+
+1568926228 source:c:\users\felip\tp1-cg\main.c
+	<SOIL/SOIL.h>
+	<math.h>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<string.h>
+	<stdio.h>
+	<time.h>
+	"desenhajogo.h"
+	"global.h"
+	"inicializa.h"
+
+1567689403 c:\users\felip\tp1-cg\desenhajogo.h
+
+1341006776 c:\program files (x86)\codeblocks\mingw\include\time.h
+	<_mingw.h>
+	<stddef.h>
+

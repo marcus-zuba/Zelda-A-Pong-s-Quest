@@ -13,22 +13,30 @@ void desenhaLink(){
             if(linkCima){
                 if(andaLink.quadroAtual<3)
                     andaLink.quadroAtual=3;
-                else if(andaLink.quadroAtual <5)
-                    andaLink.quadroAtual++;
-                else if(andaLink.quadroAtual==5)
-                    andaLink.quadroAtual=3;
+                if(timerLinkAnda>3){
+                    if(andaLink.quadroAtual <5)
+                        andaLink.quadroAtual++;
+                    else if(andaLink.quadroAtual==5)
+                        andaLink.quadroAtual=3;
+                        timerLinkAnda=0;
+                }
+                timerLinkAnda++;
                 animaPersonagem(link.posicao.x-10,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
             }
             else if(linkBaixo){
                 if(andaLink.quadroAtual>2)
                     andaLink.quadroAtual=0;
-                else if(andaLink.quadroAtual <2)
-                    andaLink.quadroAtual++;
-                else if(andaLink.quadroAtual==2)
-                    andaLink.quadroAtual=0;
-                animaPersonagem(link.posicao.x-10,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
+                if(timerLinkAnda>3){
+                    if(andaLink.quadroAtual <2)
+                        andaLink.quadroAtual++;
+                    else if(andaLink.quadroAtual==2)
+                        andaLink.quadroAtual=0;
+                        timerLinkAnda=0;
+                }
+                timerLinkAnda++;
+                animaPersonagem(link.posicao.x-3,link.posicao.y,link.proporcao.x+5, link.proporcao.y, andaLink);
             }
-            else 
+            else
                 animaPersonagem(link.posicao.x,link.posicao.y,link.proporcao.x+5, link.proporcao.y, ataqueLink);
             break;
         case(ATACANDO):
@@ -60,29 +68,38 @@ void desenhaGanon(){
             if(ganonCima){
                 if(andaGanon.quadroAtual<2)
                     andaGanon.quadroAtual=2;
-                else if(andaGanon.quadroAtual <3)
-                    andaGanon.quadroAtual++;
-                else if(andaGanon.quadroAtual==3)
-                    andaGanon.quadroAtual=2;
+                if(timerGanonAnda>5){
+                    if(andaGanon.quadroAtual <3)
+                        andaGanon.quadroAtual++;
+                    else if(andaGanon.quadroAtual==3)
+                        andaGanon.quadroAtual=2;
+                    timerGanonAnda=0;
+                }
+                timerGanonAnda+=0.1;
                 animaPersonagem(ganon.posicao.x,ganon.posicao.y,ganon.proporcao.x, ganon.proporcao.y, andaGanon);
             }
             else if(ganonBaixo){
                 if(andaGanon.quadroAtual>1)
                     andaGanon.quadroAtual=0;
-                else if(andaGanon.quadroAtual <1)
-                    andaGanon.quadroAtual++;
-                else if(andaGanon.quadroAtual==1)
-                    andaGanon.quadroAtual=0;
+                if(timerGanonAnda>5){
+                    if(andaGanon.quadroAtual <1)
+                        andaGanon.quadroAtual++;
+                    else if(andaGanon.quadroAtual==1)
+                        andaGanon.quadroAtual=0;
+                    timerGanonAnda=0;
+                }
+                timerGanonAnda+=0.1;
                 animaPersonagem(ganon.posicao.x,ganon.posicao.y,ganon.proporcao.x, ganon.proporcao.y, andaGanon);
             }
             else
                 desenhaPersonagem(ganon.posicao.x,ganon.posicao.y, ganon.proporcao.x, ganon.proporcao.y, idGanon);
+            timerGanonAnda++;
             break;
         case(ATACANDO):
             animaPersonagem(ganon.posicao.x,ganon.posicao.y,ganon.proporcao.x, ganon.proporcao.y, ataqueGanon);
             timerAtaca++;
             if(timerAtaca>=5){
-                ganonAtual=PARADO;  
+                ganonAtual=PARADO;
                 timerAtaca=0;
             }
             break;
@@ -100,10 +117,11 @@ void desenhaJogo(){
     desenhaLink();
     desenhaGanon();
 
+
     glPushMatrix();
     glTranslatef(bola.posicao.x,bola.posicao.y,0);
     glRotatef(angulobola+=3*bola.velocidade.x,0,0,1);
-    animaPersonagem(0, 0,bola.proporcao.x,bola.proporcao.y, bola);
+    animaPersonagem(0, 0, bola.proporcao.x,bola.proporcao.y, bola);
     glPopMatrix();
 
 }

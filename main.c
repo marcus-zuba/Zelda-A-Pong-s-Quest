@@ -4,7 +4,7 @@
 #include <GL/freeglut.h>
 #include <string.h>
 #include <stdio.h>
-
+#include<time.h>
 
 #include "desenhajogo.h"
 #include "global.h"
@@ -148,15 +148,81 @@ void desenhaMinhaCena(){
 
         case(MENU):
             glClear(GL_COLOR_BUFFER_BIT);
-            desenhaFundo(2,3,4,5, idTexturaMenu);
+
+            desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
+            desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
+
+            MarX-=5;
+            CeuX--;
+
+
+            if(MarX==-40){
+                MarX2=240.00001;
+                MarI++;
+            }
+
+                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
+
+            if(CeuX==-40){
+                CeuX2=240.000001;
+                CeuI++;
+            }
+
+                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
+
+            MarX2-=5;
+            CeuX2--;
+
+
+            if(MarX2==-40){
+                MarX=240.000001;
+                MarI=0;
+            }
+
+            if(CeuX2==-40){
+                CeuX=240.000001;
+                MarI=0;
+            }
+
+            timerLogo++;
+            if(timerLogo>240){
+                animaPersonagem(0, 60, 50, 25, logo);
+                if(logo.quadroAtual<3 && tempoLogo>=0.1){
+                    logo.quadroAtual++;
+                    tempoLogo=0;
+                }
+                else if(logo.quadroAtual==3 && tempoLogo>=0.1){
+                    tempoLogo=0;
+
+                }
+                tempoLogo+=0.028;
+            }
+
             desenhaBotoes();
             glutSwapBuffers();
+
+
+
             break;
         case(JOGO):
             glClear(GL_COLOR_BUFFER_BIT);
+
             desenhaFundo(2,3,4,5,idTexturaFundo);
+
+            animaPersonagem(0, 70, 10, 25, ZeldaPresa);
+            if(ZeldaPresa.quadroAtual<13 && tempoCristal>=0.1){
+                ZeldaPresa.quadroAtual++;
+                tempoCristal=0;
+            }
+            else if(ZeldaPresa.quadroAtual==13 && tempoCristal>=0.1){
+                tempoCristal=0;
+                ZeldaPresa.quadroAtual=0;
+            }
+            tempoCristal+=0.05;
+
             desenhaJogo();
-            desenhaPersonagem(0, 70, 12, 25, idZeldaNormal);
+
+
             glutSwapBuffers();
             break;
         case(PAUSE):
@@ -173,12 +239,36 @@ void desenhaMinhaCena(){
             glClear(GL_COLOR_BUFFER_BIT);
             desenhaFundo(2,3,4,5,idTexturaFundo);
             desenhaJogo();
+
             if(vitoriaLink){
-                desenhaPersonagem(0,70,link.proporcao.x, link.proporcao.y+5, idZeldaW);
+
+                animaPersonagem(0, 70, 10, 25, ZeldaPresaW);
+                if(ZeldaPresaW.quadroAtual<13 && tempoCristal>=0.1){
+                    ZeldaPresaW.quadroAtual++;
+                    tempoCristal=0;
+                }
+                else if(ZeldaPresa.quadroAtual==13 && tempoCristal>=0.1){
+                    tempoCristal=0;
+
+                }
+                tempoCristal+=0.05;
+
+
                 desenhaPersonagem(0, 0, 30,30, idVic);
             }
             if(vitoriaGanon){
-                desenhaPersonagem(0, 60, 20, 10, idZeldaL1);
+
+                animaPersonagem(0, 70, 10, 25, ZeldaPresaL);
+                if(ZeldaPresaL.quadroAtual<13 && tempoCristal>=0.1){
+                    ZeldaPresaL.quadroAtual++;
+                    tempoCristal=0;
+                }
+                else if(ZeldaPresa.quadroAtual==13 && tempoCristal>=0.1){
+                    tempoCristal=0;
+                    ZeldaPresaL.quadroAtual=12;
+                }
+                tempoCristal+=0.05;
+
                 desenhaPersonagem(0, 0, 50, 30, idLos);
             }
 
@@ -222,27 +312,6 @@ void atualizaVelocidade(){
             ganonAtual=ATACANDO;
             bola.quadroAtual=0;
         }
-/*        
-        if((xb+lb <= xl+ll && xb-lb >= xl-ll ) && (yb+ab >= yl-al)){ //colisao com baixo do link
-            bola.velocidade.y *= -1;
-            xb = xl + lg + 1 - lb;
-            seColisao=0;
-        }
-        if((xb+lb <= xl+ll && xb-lb >= xl-ll ) && (yb-ab <= yl+al)){ //colisao com cima do link
-            bola.velocidade.y *= -1;
-            xb = xl + lg + 1 - lb;
-            seColisao=0;        
-        }        
-        if((xb+lb <= xg+lg && xb-lb >= xg-lg ) && (yb+ab >= yg-ag)){ //colisao com baixo do ganon
-            bola.velocidade.y *= -1;
-            xb = xg - lg - 1 + lb;
-            seColisao=0;
-        }
-        if((xb+lb <= xg+lg && xb-lb >= xg-lg ) && (yb-ab <= yl+ag)){ //colisao com cima do ganon
-            bola.velocidade.y *= -1;
-            xb = xg - lg - 1 + lb;
-            seColisao=0;
-        }*/
     }
 }
 
@@ -254,15 +323,15 @@ void atualizaPontuacao(){
     if(xb-lb<=X_MINIMO && PontuacaoGanon<3){
         PontuacaoGanon++;
         bola.posicao.x=0;
-        bola.posicao.y=0;
-        tempoBola=0;  
+        bola.posicao.y=65;
+        tempoBola=0;
         bola.quadroAtual=1;
     }
 
     if(xb+lb>=X_MAXIMO && PontuacaoLink<3){
         PontuacaoLink++;
         bola.posicao.x=0;
-        bola.posicao.y=0;
+        bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
     }
@@ -323,14 +392,20 @@ void atualizaCena(int valorQualquer){
         case(JOGO):
             tempoBola++;
             seColisao++;
+            srand(time(0));
             if(tempoBola<50){
                 bola.velocidade.x=0;
                 bola.velocidade.y=0;
             }
             else{
                 if(tempoBola==50){
-                    bola.velocidade.x=3.0;
-                    bola.velocidade.y=3.0;
+                    if(rand()%2==0){
+                        bola.velocidade.x=-3.0;
+                        bola.velocidade.y=-3.0;
+                    }else{
+                        bola.velocidade.x=3.0;
+                        bola.velocidade.y=3.0;
+                    }
                 }
                 if(bola.velocidade.x>0)
                     bola.velocidade.x+=0.01;
@@ -425,15 +500,15 @@ void teclaPressionada(unsigned char key, int x, int y){
                     glColor3f(1, 1, 1);
                     escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "3", -5,0);
                     glutSwapBuffers();
-                    sleep(1);
+                    //sleep(1);
                     glColor3f(1, 1, 1);
                     escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "2", 0,0);
                     glutSwapBuffers();
-                    sleep(1);
+                    //sleep(1);
                     glColor3f(1, 1, 1);
                     escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "1", 5,0);
                     glutSwapBuffers();
-                    sleep(1);
+                    //sleep(1);
                     telaAtual = JOGO;
                     break;
                 default:
