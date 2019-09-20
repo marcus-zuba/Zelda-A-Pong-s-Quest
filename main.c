@@ -9,6 +9,8 @@
 #include "desenhajogo.h"
 #include "global.h"
 #include "inicializa.h"
+#include "musica.h"
+
 
 #define Y_MAXIMO 75
 #define Y_MINIMO -73
@@ -456,7 +458,7 @@ void atualizaVelocidade(){
     }
 }
 
-//lógica aqui para baixo um pouco zoada
+//lï¿½gica aqui para baixo um pouco zoada
 
 void atualizaPontuacao(){
 
