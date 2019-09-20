@@ -11,7 +11,6 @@
 #include "inicializa.h"
 #include "musica.h"
 
-
 #define Y_MAXIMO 75
 #define Y_MINIMO -73
 #define X_MAXIMO 75
@@ -303,6 +302,10 @@ void desenhaMinhaCena(){
 
             break;
         case(MENU):
+            if(!MusicaPrincipal){
+                tocar_musica("../OGG/principal.ogg",-1);
+                MusicaPrincipal=1;
+            }
             glClear(GL_COLOR_BUFFER_BIT);
 
             desenhaPersonagem(MarX, -50, 140, 49.9, idMar);

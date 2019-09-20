@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
+int MusicaPrincipal=0;
 int PontuacaoLink;
 int PontuacaoGanon;
 int SetsLink;
@@ -47,7 +48,7 @@ struct vetor2d{
 
 struct sprite{
 
-    struct vetor2d posicao;  // Posição atual
+    struct vetor2d posicao;  // Posiï¿½ï¿½o atual
     struct vetor2d proporcao;  // Altura, largura
     struct vetor2d velocidade;
 
@@ -55,7 +56,7 @@ struct sprite{
 
     GLfloat quadrosHorizontais;  // quantidade de quadros H
 
-    GLfloat quadroAtual;  // número do quadro atual
+    GLfloat quadroAtual;  // nï¿½mero do quadro atual
 };
 
 
