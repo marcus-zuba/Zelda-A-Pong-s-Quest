@@ -140,21 +140,83 @@ void desenhaBotoes(){
 
 }
 
+void desenhaOpcoes(){
+
+
+    Cl.quadroAtual=0;
+    animaPersonagem(0, 0, 40.5, 27, Cl);
+
+
+    animaPersonagem(-20, -55, 4, 7, tri);
+
+    glPushMatrix();
+    glTranslatef(20,-55,0);
+    glRotatef(180,0,0,1);
+    animaPersonagem(0, 0, 4, 7, tri);
+    glPopMatrix();
+
+
+}
+
+void desenhaBotoesEsc(){
+    animaPersonagem(0, -10, 32.5, 15, Av);
+
+    animaPersonagem(0, -55, 32.5, 15, Cl);
+
+    if(botaoAtual == START){
+        Av.quadroAtual=0;
+        Cl.quadroAtual=1;
+    }else{
+        Cl.quadroAtual=0;
+        Av.quadroAtual=1;
+    }
+
+}
 
 
 void desenhaMinhaCena(){
 
     switch(telaAtual){
+        case(CLASSICO):
+            glClear(GL_COLOR_BUFFER_BIT);
 
+            desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
+            desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
+
+            MarX-=5;
+            CeuX--;
+            if(MarX==-40){
+                MarX2=240.00001;
+                MarI++;
+            }
+                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
+            if(CeuX==-40){
+                CeuX2=240.000001;
+                CeuI++;
+            }
+                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
+            MarX2-=5;
+            CeuX2--;
+            if(MarX2==-40){
+                MarX=240.000001;
+                MarI=0;
+            }
+            if(CeuX2==-40){
+                CeuX=240.000001;
+                MarI=0;
+            }
+            logo.quadroAtual=3;
+            animaPersonagem(0, 60, 50, 25, logo);
+
+            desenhaOpcoes();
+            glutSwapBuffers();
+
+
+
+
+        break;
         case(INTRO):
 
-
-
-            break;
-        case(ESCOLHA):
-
-            break;
-        case(MENU):
             glClear(GL_COLOR_BUFFER_BIT);
 
             desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
@@ -191,7 +253,81 @@ void desenhaMinhaCena(){
                 CeuX=240.000001;
                 MarI=0;
             }
+            logo.quadroAtual=3;
+            animaPersonagem(0, 60, 50, 25, logo);
 
+
+            desenhaBotoesEsc();
+            glutSwapBuffers();
+
+
+
+            break;
+        case(ESCOLHA):
+
+             glClear(GL_COLOR_BUFFER_BIT);
+
+            desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
+            desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
+
+            MarX-=5;
+            CeuX--;
+            if(MarX==-40){
+                MarX2=240.00001;
+                MarI++;
+            }
+                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
+            if(CeuX==-40){
+                CeuX2=240.000001;
+                CeuI++;
+            }
+                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
+            MarX2-=5;
+            CeuX2--;
+            if(MarX2==-40){
+                MarX=240.000001;
+                MarI=0;
+            }
+            if(CeuX2==-40){
+                CeuX=240.000001;
+                MarI=0;
+            }
+            logo.quadroAtual=3;
+            animaPersonagem(0, 60, 50, 25, logo);
+            desenhaBotoesEsc();
+            glutSwapBuffers();
+
+
+
+            break;
+        case(MENU):
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
+            desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
+
+            MarX-=5;
+            CeuX--;
+            if(MarX==-40){
+                MarX2=240.00001;
+                MarI++;
+            }
+                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
+            if(CeuX==-40){
+                CeuX2=240.000001;
+                CeuI++;
+            }
+                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
+            MarX2-=5;
+            CeuX2--;
+            if(MarX2==-40){
+                MarX=240.000001;
+                MarI=0;
+            }
+            if(CeuX2==-40){
+                CeuX=240.000001;
+                MarI=0;
+            }
             timerLogo++;
             if(timerLogo>240){
                 animaPersonagem(0, 60, 50, 25, logo);
@@ -205,11 +341,8 @@ void desenhaMinhaCena(){
                 }
                 tempoLogo+=0.028;
             }
-
             desenhaBotoes();
             glutSwapBuffers();
-
-
 
             break;
         case(JOGO):
@@ -235,12 +368,12 @@ void desenhaMinhaCena(){
             break;
         case(PAUSE):
             glColor3f(1,1,1);
-            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "PAUSE - PARA REINICIAR PRESSIONE P", -30,60);
+            desenhaPersonagem(0,0,30,30,pausa);
             glutSwapBuffers();
             break;
         case(CONFIRMA):
-            glColor3f(1,1,1);
-            escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "DESEJA MESMO SAIR? APERTE S PARA SIM OU N PARA NAO", -50,60);
+           glColor3f(1,1,1);
+            desenhaPersonagem(0,0,30,30,idZeldaNormal);
             glutSwapBuffers();
             break;
         case(VITORIA):
@@ -323,20 +456,14 @@ void atualizaVelocidade(){
     }
 }
 
+//lógica aqui para baixo um pouco zoada
+
 void atualizaPontuacao(){
 
     GLfloat xb = bola.posicao.x; // x da bola
     GLfloat lb = bola.proporcao.x; // largura da bola
 
-    if(xb-lb<=X_MINIMO && PontuacaoGanon<3){
-        PontuacaoGanon++;
-        bola.posicao.x=0;
-        bola.posicao.y=65;
-        tempoBola=0;
-        bola.quadroAtual=1;
-    }
-
-    if(xb+lb>=X_MAXIMO && PontuacaoLink<3){
+    if(xb-lb<=X_MINIMO ){
         PontuacaoLink++;
         bola.posicao.x=0;
         bola.posicao.y=65;
@@ -344,24 +471,31 @@ void atualizaPontuacao(){
         bola.quadroAtual=1;
     }
 
-    if(PontuacaoLink==3){
+    if(xb+lb>=X_MAXIMO ){
+        PontuacaoGanon++;        bola.posicao.x=0;
+        bola.posicao.y=65;
+        tempoBola=0;
+        bola.quadroAtual=1;
+    }
+
+    if(PontuacaoLink%3==0 && PontuacaoLink!=0){
         SetsLink++;
-        PontuacaoLink=0;
+        PontuacaoLink++;
     }
 
-    if(PontuacaoGanon==3){
+    if(PontuacaoGanon%3==0 && PontuacaoGanon!=0){
         SetsGanon++;
-        PontuacaoGanon=0;
+        PontuacaoGanon++;
     }
 
-    if(SetsLink==2){
+    if(SetsLink==4){
         vitoriaLink=1;
         telaAtual=VITORIA;
         bola.posicao.x=5000;
         SetsLink=0;
     }
 
-    if(SetsGanon==2){
+    if(SetsGanon==4){
         vitoriaGanon=1;
         bola.posicao.x=5000;
         telaAtual=VITORIA;
@@ -387,7 +521,7 @@ void movimentaPersonagens(){
     }
     else if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO)/* && ganonAtual==PARADO*/){
         ganon.posicao.y-=velocidadeGanon;
-//        ganonAtual=BAIXO;
+//        ganonAtual=BAIXO
     }
 //    else if(ganonAtual==CIMA || ganonAtual==BAIXO)
 //        ganonAtual=PARADO;
@@ -398,7 +532,7 @@ void atualizaCena(int valorQualquer){
         case(INTRO):
 
             break;
-        case(ESCOLHA): 
+        case(ESCOLHA):
 
             break;
         case(MENU):
@@ -463,6 +597,28 @@ void redimensionada(int width, int height){
 
 void teclaPressionada(unsigned char key, int x, int y){
     switch(telaAtual){
+        case(ESCOLHA):
+            switch(key){
+            case('w'):
+                botaoAtual = START;
+                break;
+            case('s'):
+                botaoAtual= CLA;
+                break;
+            case(13):
+                if(botaoAtual == START)
+                    telaAtual = JOGO;
+
+                if(botaoAtual == CLA)
+                    telaAtual = CLASSICO;
+                break;
+
+            default:
+                break;
+
+            }
+            break;
+
         case(MENU):
             switch(key){
                 case('w'):
@@ -473,7 +629,7 @@ void teclaPressionada(unsigned char key, int x, int y){
                     break;
                 case(13):
                     if(botaoAtual == START)
-                        telaAtual = JOGO;
+                        telaAtual = ESCOLHA;
                     if(botaoAtual == EXIT)
                         exit(0);
                     break;
@@ -591,9 +747,12 @@ void teclaLiberada(unsigned char key, int x, int y){
             }
             break;
     }
+
 }
 
+
 int main(int argc, char** argv){
+
     glutInit(&argc, argv);
 
     glutInitContextVersion(1, 1);
@@ -602,6 +761,7 @@ int main(int argc, char** argv){
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(1300, 1260);
     glutInitWindowPosition(200, 100);
+
 
     glutCreateWindow(" ");
 
@@ -612,6 +772,8 @@ int main(int argc, char** argv){
     glutTimerFunc(33, atualizaCena, 0);
     inicializa();
 
+
     glutMainLoop();
     return 0;
+
 }

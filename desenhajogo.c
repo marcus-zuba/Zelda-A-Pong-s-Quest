@@ -109,10 +109,14 @@ void desenhaGanon(){
 void desenhaJogo(){
 
     glColor3f(0, 0, 0);
-    escrevePontuacao(GLUT_BITMAP_HELVETICA_18,PontuacaoLink, -80, 80);
-    escrevePontuacao(GLUT_BITMAP_HELVETICA_18,PontuacaoGanon, 80, 80);
-    escreveSet(GLUT_BITMAP_HELVETICA_18,SetsLink, -80, 90);
-    escreveSet(GLUT_BITMAP_HELVETICA_18,SetsGanon, 80, 90);
+
+    animaPersonagem(-70,-90, 20,4,heart);
+    heart.quadroAtual=PontuacaoGanon;
+
+    animaPersonagem(70,-90, 20,4,heart);
+    heart.quadroAtual=PontuacaoLink;
+
+
 
     desenhaLink();
     desenhaGanon();

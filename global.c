@@ -31,8 +31,8 @@ float tempoCristal=0;
 float timerGanonAnda=0;
 float timerLinkAnda =0;
 
-enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, CONFIRMA, VITORIA};
-enum Botao {START, EXIT};
+enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, CONFIRMA, VITORIA,CLASSICO};
+enum Botao {START, EXIT, CLA};
 enum Personagem {PARADO, ATACANDO, COMEMORANDO};
 
 
@@ -47,7 +47,7 @@ struct vetor2d{
 
 struct sprite{
 
-    struct vetor2d posicao;  // PosiÃ§Ã£o atual
+    struct vetor2d posicao;  // Posição atual
     struct vetor2d proporcao;  // Altura, largura
     struct vetor2d velocidade;
 
@@ -55,7 +55,7 @@ struct sprite{
 
     GLfloat quadrosHorizontais;  // quantidade de quadros H
 
-    GLfloat quadroAtual;  // nÃºmero do quadro atual
+    GLfloat quadroAtual;  // número do quadro atual
 };
 
 
@@ -73,6 +73,14 @@ struct sprite fundomenu;
 struct sprite ZeldaPresa;
 struct sprite ZeldaPresaW;
 struct sprite ZeldaPresaL;
+struct sprite Av;
+struct sprite Cl;
+struct sprite heart;
+struct sprite linkop;
+struct sprite zeldaop;
+struct sprite hist;
+struct sprite tri;
+struct sprite heartG;
 
 int keyboard[256];
 
@@ -96,4 +104,6 @@ GLint idVic;
 GLint idLos;
 GLuint idMar;
 GLuint idCeu;
+GLuint pausa;
+
 GLfloat angulobola=0;
