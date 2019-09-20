@@ -30,14 +30,6 @@ GLuint carregaTextura(const char* arquivo) {
 }
 
 
-void escreveTexto(void * font, char *s, float x, float y) {
-    int i;
-    glRasterPos2f(x, y);
-    for (i = 0; i < strlen(s); i++) {
-        glutBitmapCharacter(font, s[i]);
-    }
-}
-
 void escrevePontuacao(void * font, int pontuacao, float x, float y){
     glRasterPos2f(x,y);
     char c = pontuacao + 48;
@@ -145,15 +137,17 @@ void desenhaOpcoes(){
 
 
     Cl.quadroAtual=0;
-    animaPersonagem(0, 0, 40.5, 27, Cl);
+    animaPersonagem(0, 0, 30, 15, Cl);
 
 
-    animaPersonagem(-20, -55, 4, 7, tri);
+    animaPersonagem(-30, -55, 4, 7, tri);
+
+    animaPersonagem(0, -55, 20, 25, fases);
 
     glPushMatrix();
-    glTranslatef(20,-55,0);
+    glTranslatef(30,-55,0);
     glRotatef(180,0,0,1);
-    animaPersonagem(0, 0, 4, 7, tri);
+    animaPersonagem(0, 0, 4, 7, tri2);
     glPopMatrix();
 
 
@@ -303,7 +297,7 @@ void desenhaMinhaCena(){
             break;
         case(MENU):
             if(!MusicaPrincipal){
-                tocar_musica("../OGG/principal.ogg",-1);
+                //tocar_musica("../OGG/principal.ogg",-1);
                 MusicaPrincipal=1;
             }
             glClear(GL_COLOR_BUFFER_BIT);
@@ -353,7 +347,7 @@ void desenhaMinhaCena(){
         case(JOGO):
             glClear(GL_COLOR_BUFFER_BIT);
 
-            desenhaFundo(2,3,4,5,idTexturaFundo);
+            animaPersonagem(0,0,100,100,backg);
 
             animaPersonagem(0, 70, 10, 25, ZeldaPresa);
             if(ZeldaPresa.quadroAtual<13 && tempoCristal>=0.1){
@@ -383,7 +377,7 @@ void desenhaMinhaCena(){
             break;
         case(VITORIA):
             glClear(GL_COLOR_BUFFER_BIT);
-            desenhaFundo(2,3,4,5,idTexturaFundo);
+            animaPersonagem(0,0,100,100,backg);
             desenhaJogo();
 
             if(vitoriaLink){
@@ -469,7 +463,7 @@ void atualizaPontuacao(){
     GLfloat lb = bola.proporcao.x; // largura da bola
 
     if(xb-lb<=X_MINIMO ){
-        PontuacaoLink++;
+        PontuacaoGanon++;
         bola.posicao.x=0;
         bola.posicao.y=65;
         tempoBola=0;
@@ -477,30 +471,31 @@ void atualizaPontuacao(){
     }
 
     if(xb+lb>=X_MAXIMO ){
-        PontuacaoGanon++;        bola.posicao.x=0;
+        PontuacaoLink++;
+        bola.posicao.x=0;
         bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
     }
 
-    if(PontuacaoLink%3==0 && PontuacaoLink!=0){
+    if(PontuacaoLink==11){
         SetsLink++;
-        PontuacaoLink++;
+        PontuacaoLink=0;
     }
 
-    if(PontuacaoGanon%3==0 && PontuacaoGanon!=0){
+    if(PontuacaoGanon==11){
         SetsGanon++;
-        PontuacaoGanon++;
+        PontuacaoGanon=0;
     }
 
-    if(SetsLink==4){
+    if(SetsLink==2){
         vitoriaLink=1;
         telaAtual=VITORIA;
         bola.posicao.x=5000;
         SetsLink=0;
     }
 
-    if(SetsGanon==4){
+    if(SetsGanon==2){
         vitoriaGanon=1;
         bola.posicao.x=5000;
         telaAtual=VITORIA;
@@ -543,6 +538,17 @@ void atualizaCena(int valorQualquer){
         case(MENU):
             break;
         case(JOGO):
+            if(PontuacaoLink==10){
+                timerMatchG++;
+            }else{
+                timerMatchG=0;
+            }
+            if(PontuacaoGanon==10){
+                timerMatchL++;
+            }else{
+                timerMatchL=0;
+            }
+
             tempoBola++;
             seColisao++;
             srand(time(0));
@@ -602,6 +608,49 @@ void redimensionada(int width, int height){
 
 void teclaPressionada(unsigned char key, int x, int y){
     switch(telaAtual){
+        case(CLASSICO):
+            switch(key){
+            case('w'):
+                botaoAtual = START;
+                break;
+            case('s'):
+                botaoAtual= CLA;
+                break;
+            case('d'):
+                botaoAtual = START;
+                fases.quadroAtual++;
+                if(fases.quadroAtual>3)
+                    fases.quadroAtual=0;
+                if(fases.quadroAtual<0)
+                    fases.quadroAtual=4;
+
+                tri.quadroAtual=1;
+                tri2.quadroAtual=0;
+                break;
+            case('a'):
+                botaoAtual = START;
+                fases.quadroAtual--;
+                if(fases.quadroAtual>3)
+                    fases.quadroAtual=0;
+                if(fases.quadroAtual<0)
+                    fases.quadroAtual=3;
+
+                tri.quadroAtual=0;
+                tri2.quadroAtual=1;
+                break;
+            case(13):
+                botaoAtual = START;
+                backg.quadroAtual=fases.quadroAtual;
+
+                telaAtual=JOGO;
+
+                break;
+
+            default:
+                break;
+            }
+
+
         case(ESCOLHA):
             switch(key){
             case('w'):
@@ -662,8 +711,6 @@ void teclaPressionada(unsigned char key, int x, int y){
                 case('o'):
                     ganonCima=1;
                     break;
-int ganonCima=0;
-int ganonBaixo=0;
                 case('l'):
                     ganonBaixo=1;
                     break;
@@ -674,23 +721,11 @@ int ganonBaixo=0;
         case(PAUSE):
             switch(key){
                 case('p'):
-                    glColor3f(1, 1, 1);
-                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "3", -5,0);
-                    glutSwapBuffers();
-                    //sleep(1);
-                    glColor3f(1, 1, 1);
-                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "2", 0,0);
-                    glutSwapBuffers();
-                    //sleep(1);
-                    glColor3f(1, 1, 1);
-                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "1", 5,0);
-                    glutSwapBuffers();
-                    //sleep(1);
+
                     telaAtual = JOGO;
                     break;
-int ganonCima=0;
-int ganonBaixo=0;
-                default:
+
+                    default:
                     break;
             }
             break;
@@ -711,16 +746,7 @@ int ganonBaixo=0;
                     exit(0);
                 case('n'):
                     glColor3f(1, 1, 1);
-                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "3", -5,0);
-                    glutSwapBuffers();
 
-                    glColor3f(1, 1, 1);
-                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "2", 0,0);
-                    glutSwapBuffers();
-
-                    glColor3f(1, 1, 1);
-                    escreveTexto(GLUT_BITMAP_TIMES_ROMAN_24, "1", 5,0);
-                    glutSwapBuffers();
 
                     telaAtual = JOGO;
                     break;

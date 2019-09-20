@@ -59,6 +59,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.h" />
+		<Unit filename="musica.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="musica.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

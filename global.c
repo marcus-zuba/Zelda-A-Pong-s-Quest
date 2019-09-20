@@ -81,7 +81,11 @@ struct sprite linkop;
 struct sprite zeldaop;
 struct sprite hist;
 struct sprite tri;
+struct sprite tri2;
 struct sprite heartG;
+struct sprite fases;
+struct sprite backg;
+struct sprite stamina;
 
 int keyboard[256];
 

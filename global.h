@@ -26,6 +26,8 @@ int CeuX;
 int CeuX2;
 int MarI;
 int CeuI;
+int timerMatchG;
+int timerMatchL;
 float tempoLogo;
 float timerLogo;
 float tempoCristal;
@@ -81,14 +83,15 @@ struct sprite linkop;
 struct sprite zeldaop;
 struct sprite hist;
 struct sprite tri;
+struct sprite tri2;
 struct sprite heartG;
+struct sprite fases;
+struct sprite backg;
+struct sprite stamina;
 
 int keyboard[256];
 
-GLuint idTexturaFundo;
-GLuint idTexturaFundo2;
-GLuint idTexturaFundo3;
-GLuint idTexturaFundo4;
+
 GLuint idTexturaMenu;
 GLuint idTexturaInici;
 GLuint idTexturaSair;
