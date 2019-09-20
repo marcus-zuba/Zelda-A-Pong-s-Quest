@@ -4,7 +4,7 @@
 #include <GL/freeglut.h>
 #include <string.h>
 #include <stdio.h>
-#include<time.h>
+#include <time.h>
 
 #include "desenhajogo.h"
 #include "global.h"
@@ -100,25 +100,18 @@ void animaPersonagem(float x, float y, float l, float a, struct sprite personage
 }
 
 
-/*void desenhaBola(float x, float y, float l, float a, GLuint idTextura){ // x, y, largura, altura
+void desenhaFundinho(float x, float y, float l, float a, float r, float g, float b){ // x, y, largura, altura
 
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, idTextura);
-    glColor3f(1,1,1);
+    glColor3f(r,g,b);
     glBegin(GL_TRIANGLE_FAN);
-    glTexCoord2f(0,0);
     glVertex2f(x-l,y-a);
-    glTexCoord2f(1,0);
     glVertex2f(x+l,y-a);
-    glTexCoord2f(1,1);
     glVertex2f(x+l,y+a);
-    glTexCoord2f(0,1);
     glVertex2f(x-l,y+a);
     glEnd();
-    glDisable(GL_TEXTURE_2D);
 
 
-}*/
+}
 
 void desenhaBotoes(){
     desenhaPersonagem(0, -40, 32.5, 15, idTexturaInici);
@@ -175,6 +168,11 @@ void desenhaMinhaCena(){
         case(CLASSICO):
             glClear(GL_COLOR_BUFFER_BIT);
 
+            desenhaFundinho(0,-50,100,50,0.368,0.494,0.709);
+            desenhaFundinho(0,50,100,50,0.560,0.721,0.917);
+            desenhaFundinho(0,0,100,1,0.909,0.949,1);
+
+
             desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
             desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
 
@@ -186,7 +184,7 @@ void desenhaMinhaCena(){
             }
                 desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
             if(CeuX==-40){
-                CeuX2=240.000001;
+                CeuX2=240;
                 CeuI++;
             }
                 desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
@@ -197,7 +195,7 @@ void desenhaMinhaCena(){
                 MarI=0;
             }
             if(CeuX2==-40){
-                CeuX=240.000001;
+                CeuX=240;
                 MarI=0;
             }
             logo.quadroAtual=3;
@@ -222,14 +220,14 @@ void desenhaMinhaCena(){
 
 
             if(MarX==-40){
-                MarX2=240.00001;
+                MarX2=240;
                 MarI++;
             }
 
                 desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
 
             if(CeuX==-40){
-                CeuX2=240.000001;
+                CeuX2=240;
                 CeuI++;
             }
 
@@ -240,12 +238,12 @@ void desenhaMinhaCena(){
 
 
             if(MarX2==-40){
-                MarX=240.000001;
+                MarX=240;
                 MarI=0;
             }
 
             if(CeuX2==-40){
-                CeuX=240.000001;
+                CeuX=240;
                 MarI=0;
             }
             logo.quadroAtual=3;
@@ -261,6 +259,11 @@ void desenhaMinhaCena(){
         case(ESCOLHA):
 
              glClear(GL_COLOR_BUFFER_BIT);
+        
+            desenhaFundinho(0,-50,100,50,0.368,0.494,0.709);
+            desenhaFundinho(0,50,100,50,0.560,0.721,0.917);
+            desenhaFundinho(0,0,100,1,0.909,0.949,1);
+
 
             desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
             desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
@@ -268,23 +271,23 @@ void desenhaMinhaCena(){
             MarX-=5;
             CeuX--;
             if(MarX==-40){
-                MarX2=240.00001;
+                MarX2=240;
                 MarI++;
             }
                 desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
             if(CeuX==-40){
-                CeuX2=240.000001;
+                CeuX2=240;
                 CeuI++;
             }
                 desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
             MarX2-=5;
             CeuX2--;
             if(MarX2==-40){
-                MarX=240.000001;
+                MarX=240;
                 MarI=0;
             }
             if(CeuX2==-40){
-                CeuX=240.000001;
+                CeuX=240;
                 MarI=0;
             }
             logo.quadroAtual=3;
@@ -297,11 +300,14 @@ void desenhaMinhaCena(){
             break;
         case(MENU):
             if(!MusicaPrincipal){
-                //tocar_musica("../OGG/principal.ogg",-1);
+                tocar_musica1("../Sounds/principal.ogg",-1);
                 MusicaPrincipal=1;
             }
             glClear(GL_COLOR_BUFFER_BIT);
 
+            desenhaFundinho(0,-50,100,50,0.368,0.494,0.709);
+            desenhaFundinho(0,50,100,50,0.560,0.721,0.917);
+            desenhaFundinho(0,0,100,1,0.909,0.949,1);
             desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
             desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
 
@@ -313,7 +319,7 @@ void desenhaMinhaCena(){
             }
                 desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
             if(CeuX==-40){
-                CeuX2=240.000001;
+                CeuX2=240;
                 CeuI++;
             }
                 desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
@@ -324,7 +330,7 @@ void desenhaMinhaCena(){
                 MarI=0;
             }
             if(CeuX2==-40){
-                CeuX=240.000001;
+                CeuX=240;
                 MarI=0;
             }
             timerLogo++;
@@ -345,6 +351,10 @@ void desenhaMinhaCena(){
 
             break;
         case(JOGO):
+/*            if(MusicaPrincipal){
+                parar_musica();
+                MusicaPrincipal=0;
+            }*/
             glClear(GL_COLOR_BUFFER_BIT);
 
             animaPersonagem(0,0,100,100,backg);
@@ -444,6 +454,21 @@ void atualizaVelocidade(){
             seColisao=0;
             linkAtual=ATACANDO;
             bola.quadroAtual=2;
+            int som = rand()%4;
+            switch(som){
+                case(0):
+                    tocar_musica2("../Sounds/way1.ogg",0);
+                    break;
+                case(1):
+                    tocar_musica2("../Sounds/way2.ogg",0);
+                    break;
+                case(2):
+                    tocar_musica2("../Sounds/way3.ogg",0);
+                    break;
+                case(3):
+                    tocar_musica2("../Sounds/way4.ogg",0);
+                    break;
+            }
         }
         if((xb+lb>=xg-lg) && (yb-ab <= yg+ag && yb+ab >= yg-ag)){ //colisao com a frente do ganon
             bola.velocidade.x *= -1;
@@ -451,6 +476,18 @@ void atualizaVelocidade(){
             seColisao=0;
             ganonAtual=ATACANDO;
             bola.quadroAtual=0;
+            int som = rand()%3;
+            switch(som){
+                case(0):
+                    tocar_musica2("../Sounds/hue1.ogg",0);
+                    break;
+                case(1):
+                    tocar_musica2("../Sounds/hue2.ogg",0);
+                    break;
+                case(2):
+                    tocar_musica2("../Sounds/hue3.ogg",0);
+                    break;
+            }
         }
     }
 }
@@ -468,6 +505,7 @@ void atualizaPontuacao(){
         bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
+        tocar_musica2("../Sounds/Lhit1.ogg",0);
     }
 
     if(xb+lb>=X_MAXIMO ){
@@ -476,6 +514,7 @@ void atualizaPontuacao(){
         bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
+        tocar_musica2("../Sounds/Ghit1.ogg",0);
     }
 
     if(PontuacaoLink==11){
@@ -493,6 +532,8 @@ void atualizaPontuacao(){
         telaAtual=VITORIA;
         bola.posicao.x=5000;
         SetsLink=0;
+        tocar_musica2("../Sounds/Glos.ogg",0);
+        tocar_musica2("../Sounds/Wlink.ogg",0);
     }
 
     if(SetsGanon==2){
@@ -500,6 +541,8 @@ void atualizaPontuacao(){
         bola.posicao.x=5000;
         telaAtual=VITORIA;
         SetsGanon=0;
+        tocar_musica2("../Sounds/Lhit1.ogg",0);
+        tocar_musica2("../Sounds/Wganon.ogg",0);
     }
 
 }
@@ -540,15 +583,19 @@ void atualizaCena(int valorQualquer){
         case(JOGO):
             if(PontuacaoLink==10){
                 timerMatchG++;
-            }else{
+            }
+            else{
                 timerMatchG=0;
             }
+            if(timerMatchG==10)
+                timerMatchG=0;
             if(PontuacaoGanon==10){
                 timerMatchL++;
             }else{
                 timerMatchL=0;
             }
-
+            if(timerMatchL==10)
+                timerMatchL=0;
             tempoBola++;
             seColisao++;
             srand(time(0));

@@ -110,11 +110,11 @@ void desenhaJogo(){
 
     glColor3f(0, 0, 0);
 
-    if(PontuacaoGanon<10||(PontuacaoGanon==10 && (timerMatchL%12==0 || timerMatchL%13==0 || timerMatchL%14==0))){
+    if(PontuacaoGanon<10||(PontuacaoGanon==10 && timerMatchL<7)){
         heart.quadroAtual=PontuacaoGanon;
         animaPersonagem(-70,-90, 20,4, heart);
     }
-    if(PontuacaoLink<10||(PontuacaoLink==10 && (timerMatchG%12==0 || timerMatchG%13==0 || timerMatchG%14==0))){
+    if(PontuacaoLink<10||(PontuacaoLink==10 && timerMatchG<7)){
         heart.quadroAtual=PontuacaoLink;
         animaPersonagem(70,-90, 20,4,heart);
     }
