@@ -2,8 +2,14 @@
 #include <GL/freeglut.h>
 #include <SOIL/SOIL.h>
 
+#include "musica.h"
 #include "main.h"
 #include "global.h"
+
+
+#include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
+
 
 void inicializa(){
 
@@ -44,115 +50,131 @@ void inicializa(){
     glEnable(GL_BLEND );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    idTexturaMenu = carregaTextura("C:/Users/felip/TP1-CG/Texturas/back_menu.png");
-    idTexturaInici = carregaTextura("C:/Users/felip/TP1-CG/Texturas/botao_iniciar.png");
-    idTexturaSair = carregaTextura("C:/Users/felip/TP1-CG/Texturas/botao_exit.png");
-    idLink = carregaTextura("C:/Users/felip/TP1-CG/Texturas/Link.png");
-    idGanon = carregaTextura("C:/Users/felip/TP1-CG/Texturas/Ganons.png");
-    idSTART = carregaTextura("C:/Users/felip/TP1-CG/Texturas/botao_iniciarSE.png");
-    idEXIT = carregaTextura("C:/Users/felip/TP1-CG/Texturas/botao_exitSE.png");
-    idZeldaNormal = carregaTextura("C:/Users/felip/TP1-CG/Texturas/sair.png");
-    idZeldaW = carregaTextura("C:/Users/felip/TP1-CG/Texturas/zelda_1.png");
-    idZeldaL0 = carregaTextura("C:/Users/felip/TP1-CG/Texturas/mar.png");
-    idZeldaL1 = carregaTextura("C:/Users/felip/TP1-CG/Texturas/ceu.png");
-    idLos = carregaTextura("C:/Users/felip/TP1-CG/Texturas/victoryGanon.png");
-    idVic = carregaTextura("C:/Users/felip/TP1-CG/Texturas/victory.png");
-    idMar = carregaTextura("C:/Users/felip/TP1-CG/Texturas/mar.png");
-    idCeu = carregaTextura("C:/Users/felip/TP1-CG/Texturas/ceu.png");
-    pausa = carregaTextura("C:/Users/felip/TP1-CG/Texturas/pause.png");
+    idTexturaMenu = carregaTextura("../Texturas/back_menu.png");
+    idTexturaInici = carregaTextura("../Texturas/botao_iniciar.png");
+    idTexturaSair = carregaTextura("../Texturas/botao_exit.png");
+    idLink = carregaTextura("../Texturas/Link.png");
+    idGanon = carregaTextura("../Texturas/Ganons.png");
+    idSTART = carregaTextura("../Texturas/botao_iniciarSE.png");
+    idEXIT = carregaTextura("../Texturas/botao_exitSE.png");
+    idZeldaNormal = carregaTextura("../Texturas/sair.png");
+    idZeldaW = carregaTextura("../Texturas/zelda_1.png");
+    idZeldaL0 = carregaTextura("../Texturas/mar.png");
+    idZeldaL1 = carregaTextura("../Texturas/ceu.png");
+    idLos = carregaTextura("../Texturas/victoryGanon.png");
+    idVic = carregaTextura("../Texturas/victory.png");
+    idMar = carregaTextura("../Texturas/mar.png");
+    idCeu = carregaTextura("../Texturas/ceu.png");
+    pausa = carregaTextura("../Texturas/pause.png");
 
-    ZeldaPresa.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/zeldaPresas.png");
+    way1 = load_music("../Sounds/way1.ogg");
+    way2 = load_music("../Sounds/way2.ogg");
+    way3 = load_music("../Sounds/way3.ogg");
+    way4 = load_music("../Sounds/way4.ogg");
+
+    principal = load_music("../Sounds/principal.ogg");
+ 
+    hue1 = load_music("../Sounds/hue1.ogg");
+    hue2 = load_music("../Sounds/hue2.ogg");
+    hue3 = load_music("../Sounds/hue3.ogg");
+
+    Lhit = load_music("../Sounds/Lhit1.ogg");
+    Ghit = load_music("../Sounds/Ghit1.ogg");
+    Glos = load_music("../Sounds/Glos.ogg");
+
+
+    ZeldaPresa.idTextura = carregaTextura("../Texturas/zeldaPresas.png");
     ZeldaPresa.quadrosHorizontais =14;
     ZeldaPresa.quadroAtual=0;
 
-    ZeldaPresaL.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/zeldaPresa1.png");
+    ZeldaPresaL.idTextura = carregaTextura("../Texturas/zeldaPresa1.png");
     ZeldaPresaL.quadrosHorizontais =14;
     ZeldaPresaL.quadroAtual=0;
 
-    ZeldaPresaW.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/zeldaPresa2.png");
+    ZeldaPresaW.idTextura = carregaTextura("../Texturas/zeldaPresa2.png");
     ZeldaPresaW.quadrosHorizontais =14;
     ZeldaPresaW.quadroAtual=0;
 
 
-    bola.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/bolaf.png");
+    bola.idTextura = carregaTextura("../Texturas/bolaf.png");
     bola.quadrosHorizontais=3;
     bola.quadroAtual=1;
 
-    ataqueLink.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/Link_Ataca.png");
+    ataqueLink.idTextura = carregaTextura("../Texturas/Link_Ataca.png");
     ataqueLink.quadrosHorizontais=3;
     ataqueLink.quadroAtual=0;
 
-    ataqueGanon.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/g2.png");
+    ataqueGanon.idTextura = carregaTextura("../Texturas/g2.png");
     ataqueGanon.quadrosHorizontais=3;
     ataqueGanon.quadroAtual=2;
 
-    andaLink.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/Link_Moveo.png");
+    andaLink.idTextura = carregaTextura("../Texturas/Link_Moveo.png");
     andaLink.quadrosHorizontais=6;
     andaLink.quadroAtual=0;
 
-    andaGanon.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/ganon_sprite_mov.png");
+    andaGanon.idTextura = carregaTextura("../Texturas/ganon_sprite_mov.png");
     andaGanon.quadrosHorizontais=4;
     andaGanon.quadroAtual=0;
 
-    fundomenu.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/anima_menu.png");
+    fundomenu.idTextura = carregaTextura("../Texturas/anima_menu.png");
     fundomenu.quadrosHorizontais=2;
     fundomenu.quadroAtual=0;
 
-    logo.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/logo-loz.png");
+    logo.idTextura = carregaTextura("../Texturas/logo-loz.png");
     logo.quadrosHorizontais = 4;
     logo.quadroAtual=0;
 
-    Av.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/BOTAO_Ave.png");
+    Av.idTextura = carregaTextura("../Texturas/BOTAO_Ave.png");
     Av.quadrosHorizontais =2;
     Av.quadroAtual=0;
 
-    Cl.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/BOTAO_Cla.png");
+    Cl.idTextura = carregaTextura("../Texturas/BOTAO_Cla.png");
     Cl.quadrosHorizontais =2;
     Cl.quadroAtual=0;
 
-    heart.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/heart.png");
+    heart.idTextura = carregaTextura("../Texturas/heart.png");
     heart.quadrosHorizontais =11;
 
-    heartG.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/heart.png");
+    heartG.idTextura = carregaTextura("../Texturas/heart.png");
     heartG.quadrosHorizontais =11;
 
-    linkop.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/link_op_anim.png");
+    linkop.idTextura = carregaTextura("../Texturas/link_op_anim.png");
     linkop.quadrosHorizontais =4;
     linkop.quadroAtual=0;
 
-    zeldaop.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/zelda_op_anim.png");
+    zeldaop.idTextura = carregaTextura("../Texturas/zelda_op_anim.png");
     zeldaop.quadrosHorizontais =4;
     zeldaop.quadroAtual=0;
 
-    hist.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/historia1.png");
+    hist.idTextura = carregaTextura("../Texturas/historia1.png");
     hist.quadrosHorizontais =14;
     hist.quadroAtual=0;
 
-    hist1.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/historia2.png");
+    hist1.idTextura = carregaTextura("../Texturas/historia2.png");
     hist1.quadrosHorizontais =14;
     hist1.quadroAtual=0;
 
-    tri.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/triforce.png");
+    tri.idTextura = carregaTextura("../Texturas/triforce.png");
     tri.quadrosHorizontais = 4;
     tri.quadroAtual =0;
 
-    tri2.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/triforce.png");
+    tri2.idTextura = carregaTextura("../Texturas/triforce.png");
     tri2.quadrosHorizontais = 4;
     tri2.quadroAtual =0;
 
-    fases.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/fases.png");
+    fases.idTextura = carregaTextura("../Texturas/fases.png");
     fases.quadrosHorizontais = 4;
     fases.quadroAtual =0;
 
-    backg.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/back.png");
+    backg.idTextura = carregaTextura("../Texturas/back.png");
     backg.quadrosHorizontais = 4;
     backg.quadroAtual =0;
 
-    stamina.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/stamina.png");
+    stamina.idTextura = carregaTextura("../Texturas/stamina.png");
     stamina.quadrosHorizontais = 4;
     stamina.quadroAtual =0;
 
-    ganonop.idTextura = carregaTextura("C:/Users/felip/TP1-CG/Texturas/ganon_op.png");
+    ganonop.idTextura = carregaTextura("../Texturas/ganon_op.png");
     ganonop.quadrosHorizontais = 4;
     ganonop.quadroAtual =0;
 

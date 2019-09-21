@@ -1,6 +1,9 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
+#include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
+
 int MusicaPrincipal=0;
 int PontuacaoLink;
 int PontuacaoGanon;
@@ -116,5 +119,21 @@ GLint idLos;
 GLuint idMar;
 GLuint idCeu;
 GLuint pausa;
+
+Mix_Chunk * way1; 
+Mix_Chunk * way2; 
+Mix_Chunk * way3; 
+Mix_Chunk * way4; 
+
+Mix_Chunk * principal; 
+ 
+Mix_Chunk * hue1; 
+Mix_Chunk * hue2; 
+Mix_Chunk * hue3; 
+
+Mix_Chunk * Lhit;
+Mix_Chunk * Ghit;
+Mix_Chunk * Glos;
+
 
 GLfloat angulobola=0;

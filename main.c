@@ -190,8 +190,6 @@ void desenhaMarCeu(){
         CeuX=239;
         MarI=0;
     }
-    logo.quadroAtual=3;
-    animaPersonagem(0, 60, 50, 25, logo);
 }
 
 void desenhaMinhaCena(){
@@ -202,6 +200,8 @@ void desenhaMinhaCena(){
             glClear(GL_COLOR_BUFFER_BIT);
 
             desenhaMarCeu();
+            logo.quadroAtual=3;
+            animaPersonagem(0, 60, 50, 25, logo);
 
             desenhaOpcoes();
 
@@ -312,6 +312,8 @@ void desenhaMinhaCena(){
             glClear(GL_COLOR_BUFFER_BIT);
 
             desenhaMarCeu();
+            logo.quadroAtual=3;
+            animaPersonagem(0, 60, 50, 25, logo);
 
             desenhaBotoesEsc();
 
@@ -320,7 +322,7 @@ void desenhaMinhaCena(){
             break;
         case(MENU):
             if(!MusicaPrincipal){
-              //  tocar_musica1("../Sounds/principal.ogg",-1);
+                play_music(principal, 1, 0);
                 MusicaPrincipal=1;
             }
             glClear(GL_COLOR_BUFFER_BIT);
@@ -374,10 +376,6 @@ void desenhaMinhaCena(){
             break;
 
         case(JOGO):
-/*            if(MusicaPrincipal){
-                parar_musica();
-                MusicaPrincipal=0;
-            }*/
             glClear(GL_COLOR_BUFFER_BIT);
 
             animaPersonagem( 0, 0, 100, 100, backg);
@@ -518,16 +516,16 @@ void atualizaVelocidade(){
             int som = rand()%4;
             switch(som){
                 case(0):
-                  //  tocar_musica2("../Sounds/way1.ogg",0);
+                    play_music(way1, 2, 0);
                     break;
                 case(1):
-                  //  tocar_musica2("../Sounds/way2.ogg",0);
+                    play_music(way2, 2, 0);
                     break;
                 case(2):
-                  //  tocar_musica2("../Sounds/way3.ogg",0);
+                    play_music(way3, 2, 0);
                     break;
                 case(3):
-                   // tocar_musica2("../Sounds/way4.ogg",0);
+                    play_music(way4, 2, 0);
                     break;
             }
         }
@@ -541,13 +539,13 @@ void atualizaVelocidade(){
             int som = rand()%3;
             switch(som){
                 case(0):
-                //    tocar_musica2("../Sounds/hue1.ogg",0);
+                    play_music(hue1, 2, 0);
                     break;
                 case(1):
-                  //  tocar_musica2("../Sounds/hue2.ogg",0);
+                    play_music(hue2, 2, 0);
                     break;
                 case(2):
-                 //   tocar_musica2("../Sounds/hue3.ogg",0);
+                    play_music(hue3, 2, 0);
                     break;
             }
         }
@@ -565,7 +563,7 @@ void atualizaPontuacao(){
         bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
-     //   tocar_musica2("../Sounds/Lhit1.ogg",0);
+        play_music(Lhit, 2, 0);
     }
 
     if(xb+lb>=X_MAXIMO ){
@@ -574,7 +572,7 @@ void atualizaPontuacao(){
         bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
-       // tocar_musica2("../Sounds/Ghit1.ogg",0);
+        play_music(Ghit, 2, 0);
     }
 
     if(PontuacaoLink==11){
@@ -592,8 +590,7 @@ void atualizaPontuacao(){
         telaAtual=VITORIA;
         bola.posicao.x=5000;
         SetsLink=0;
-     //   tocar_musica2("../Sounds/Glos.ogg",0);
-      //  tocar_musica2("../Sounds/Wlink.ogg",0);
+        play_music(Glos, 2, 0);
     }
 
     if(SetsGanon==3){
@@ -601,8 +598,7 @@ void atualizaPontuacao(){
         bola.posicao.x=5000;
         telaAtual=VITORIA;
         SetsGanon=0;
-     //   tocar_musica2("../Sounds/Lhit1.ogg",0);
-     //   tocar_musica2("../Sounds/Wganon.ogg",0);
+        play_music(Lhit, 2, 0);
     }
 
 }

@@ -1,18 +1,11 @@
-#include <time.h>
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-#include <SOIL/SOIL.h>
 #include <stdio.h>
 
-//#include <SDL/SDL.h>
-//#include <SDL/SDL_mixer.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
 
-#include "musica.h"
-#include "global.h"
-/*
- void tocar_musica1(char const nome[40], int loop) {
-    Mix_Chunk * som = NULL;
-    int canal;
+
+Mix_Chunk * load_music(char const file[40]){
+    
     int canal_audio = 2;
     int taxa_audio = 22050;
     Uint16 formato_audio = AUDIO_S16SYS;
@@ -20,48 +13,41 @@
 
     if (Mix_OpenAudio(taxa_audio, formato_audio, canal_audio, audio_buffers) != 0) {
         printf("Não pode inicializar audio: %s\n", Mix_GetError());
+        return NULL;
     }
 
-    som = Mix_LoadWAV(nome);
+    Mix_Chunk* music= Mix_LoadWAV(file);
 
-    if (som == NULL) {
-        printf("Não pode inicializar audio: %s\n", Mix_GetError());
+    if (music == NULL) {
+        printf("Não foi possível inicializar audio: %s\n", Mix_GetError());
+        return NULL;
     }
-
-    Mix_HaltChannel(-1);
-    canal = Mix_PlayChannel(-1, som, loop);
-
-    if (canal == -1) {
-        printf("Não pode inicializar audio: %s\n", Mix_GetError());
-    }
+    
+    return music;
 }
 
-void tocar_musica2(char const nome[40], int loop) {
-    Mix_Chunk * som = NULL;
+void play_music(Mix_Chunk * music, int channel, int loop) {//não use o canal 99, reservado para efeitos sonoros
     int canal;
-    int canal_audio = 2;
-    int taxa_audio = 22050;
-    Uint16 formato_audio = AUDIO_S16SYS;
-    int audio_buffers = 4096;
 
-    if (Mix_OpenAudio(taxa_audio, formato_audio, canal_audio, audio_buffers) != 0) {
-        printf("Não pode inicializar audio: %s\n", Mix_GetError());
-    }
-
-    som = Mix_LoadWAV(nome);
-
-    if (som == NULL) {
-        printf("Não pode inicializar audio: %s\n", Mix_GetError());
-    }
-
-    Mix_HaltChannel(-1);
-    canal = Mix_PlayChannel(-1, som, loop);
+    Mix_HaltChannel(channel);
+    canal = Mix_PlayChannel(channel, music, loop);
 
     if (canal == -1) {
-        printf("Não pode inicializar audio: %s\n", Mix_GetError());
+        printf("Não foi possível inicializar audio: %s\n", Mix_GetError());
     }
 }
-*/
-void parar_musica() {
-//    Mix_HaltChannel(-1);
+
+void play_SFX(Mix_Chunk * sfx){
+    int canal;
+
+    Mix_HaltChannel(99);
+    canal = Mix_PlayChannel(99, sfx, 1);
+
+    if (canal == -1) {
+        printf("Não foi possível inicializar efeito: %s\n", Mix_GetError());
+    }
+}
+
+void stop_music(int channel) {
+    Mix_HaltChannel(channel);
 }
