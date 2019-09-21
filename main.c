@@ -322,7 +322,7 @@ void desenhaMinhaCena(){
             break;
         case(MENU):
             if(!MusicaPrincipal){
-                play_music(principal, 1, 0);
+                play_music(principal, 1, -1);
                 MusicaPrincipal=1;
             }
             glClear(GL_COLOR_BUFFER_BIT);
