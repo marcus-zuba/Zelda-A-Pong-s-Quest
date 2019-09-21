@@ -26,6 +26,9 @@ int CeuX;
 int CeuX2;
 int MarI;
 int CeuI;
+int Ok1;
+int Ok2;
+int Ok3;
 int timerMatchG;
 int timerMatchL;
 float tempoLogo;
@@ -33,6 +36,7 @@ float timerLogo;
 float tempoCristal;
 float timerGanonAnda;
 float timerLinkAnda;
+int timerHist;
 
 enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, CONFIRMA, VITORIA, CLASSICO};
 enum Botao {START, EXIT, CLA};
@@ -82,12 +86,14 @@ struct sprite heart;
 struct sprite linkop;
 struct sprite zeldaop;
 struct sprite hist;
+struct sprite hist1;
 struct sprite tri;
 struct sprite tri2;
 struct sprite heartG;
 struct sprite fases;
 struct sprite backg;
 struct sprite stamina;
+struct sprite ganonop;
 
 int keyboard[256];
 

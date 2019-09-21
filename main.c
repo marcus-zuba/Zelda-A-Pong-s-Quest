@@ -17,28 +17,35 @@
 #define X_MINIMO -72
 
 GLuint carregaTextura(const char* arquivo) {
+
     GLuint idTextura = SOIL_load_OGL_texture(
                            arquivo,
                            SOIL_LOAD_AUTO,
                            SOIL_CREATE_NEW_ID,
                            SOIL_FLAG_INVERT_Y
                        );
+
     if (idTextura == 0) {
         printf("Erro do SOIL: '%s'\n", SOIL_last_result());
     }
+
     return idTextura;
 }
 
 
 void escrevePontuacao(void * font, int pontuacao, float x, float y){
     glRasterPos2f(x,y);
+
     char c = pontuacao + 48;
+
     glutBitmapCharacter(font, c);
 }
 
 void escreveSet(void * font, int set, float x, float y){
     glRasterPos2f(x,y);
+
     char c = set + 48;
+
     glutBitmapCharacter(font, c);
 }
 
@@ -46,16 +53,16 @@ void desenhaFundo(float x, float y, float l, float a, GLuint idTextura){
 
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, idTextura);
-    glColor3f(1,1,1);
+    glColor3f( 1, 1, 1);
     glBegin(GL_TRIANGLE_FAN);
-    glTexCoord2f(0,0);
-    glVertex2f(-100,-100);
-    glTexCoord2f(0,1);
-    glVertex2f(-100,100);
-    glTexCoord2f(1,1);
-    glVertex2f(100,100);
-    glTexCoord2f(1,0);
-    glVertex2f(100,-100);
+    glTexCoord2f( 0, 0);
+    glVertex2f( -100, -100);
+    glTexCoord2f( 0, 1);
+    glVertex2f( -100, 100);
+    glTexCoord2f( 1, 1);
+    glVertex2f( 100, 100);
+    glTexCoord2f( 1, 0);
+    glVertex2f( 100, -100);
     glEnd();
     glDisable(GL_TEXTURE_2D);
 
@@ -65,16 +72,16 @@ void desenhaPersonagem(float x, float y, float l, float a, GLuint idTextura){ //
 
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, idTextura);
-    glColor3f(1,1,1);
+    glColor3f( 1, 1, 1);
     glBegin(GL_TRIANGLE_FAN);
-    glTexCoord2f(0,0);
-    glVertex2f(x-l,y-a);
-    glTexCoord2f(1,0);
-    glVertex2f(x+l,y-a);
-    glTexCoord2f(1,1);
-    glVertex2f(x+l,y+a);
-    glTexCoord2f(0,1);
-    glVertex2f(x-l,y+a);
+    glTexCoord2f( 0, 0);
+    glVertex2f( x-l, y-a);
+    glTexCoord2f( 1, 0);
+    glVertex2f( x+l, y-a);
+    glTexCoord2f( 1, 1);
+    glVertex2f( x+l, y+a);
+    glTexCoord2f( 0, 1);
+    glVertex2f( x-l, y+a);
     glEnd();
     glDisable(GL_TEXTURE_2D);
 
@@ -84,16 +91,16 @@ void animaPersonagem(float x, float y, float l, float a, struct sprite personage
 
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, personagem.idTextura);
-    glColor3f(1,1,1);
+    glColor3f( 1, 1, 1);
     glBegin(GL_TRIANGLE_FAN);
     glTexCoord2f(personagem.quadroAtual/personagem.quadrosHorizontais,0);
-    glVertex2f(x-l,y-a);
+    glVertex2f( x-l, y-a);
     glTexCoord2f((personagem.quadroAtual/personagem.quadrosHorizontais)+1/personagem.quadrosHorizontais,0);
-    glVertex2f(x+l,y-a);
+    glVertex2f( x+l, y-a);
     glTexCoord2f((personagem.quadroAtual/personagem.quadrosHorizontais)+1/personagem.quadrosHorizontais,1);
-    glVertex2f(x+l,y+a);
+    glVertex2f( x+l, y+a);
     glTexCoord2f(personagem.quadroAtual/personagem.quadrosHorizontais,1);
-    glVertex2f(x-l,y+a);
+    glVertex2f( x-l, y+a);
     glEnd();
     glDisable(GL_TEXTURE_2D);
 
@@ -102,54 +109,47 @@ void animaPersonagem(float x, float y, float l, float a, struct sprite personage
 
 void desenhaFundinho(float x, float y, float l, float a, float r, float g, float b){ // x, y, largura, altura
 
-    glColor3f(r,g,b);
+    glColor3f( r, g, b);
     glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(x-l,y-a);
-    glVertex2f(x+l,y-a);
-    glVertex2f(x+l,y+a);
-    glVertex2f(x-l,y+a);
+    glVertex2f( x-l, y-a);
+    glVertex2f( x+l, y-a);
+    glVertex2f( x+l, y+a);
+    glVertex2f( x-l, y+a);
     glEnd();
-
-
 }
 
 void desenhaBotoes(){
-    desenhaPersonagem(0, -40, 32.5, 15, idTexturaInici);
+    desenhaPersonagem( 0, -40, 32.5, 15, idTexturaInici);
 
-    desenhaPersonagem(0, -65, 20.5, 10, idTexturaSair);
+    desenhaPersonagem( 0, -65, 20.5, 10, idTexturaSair);
 
     if(botaoAtual == START){
-        desenhaPersonagem(0, -40, 32.5, 15, idSTART);
+        desenhaPersonagem( 0, -40, 32.5, 15, idSTART);
     }else{
-        desenhaPersonagem(0, -65, 20.5, 10, idEXIT);
+        desenhaPersonagem( 0, -65, 20.5, 10, idEXIT);
     }
-
 }
 
 void desenhaOpcoes(){
 
-
     Cl.quadroAtual=0;
-    animaPersonagem(0, 0, 30, 15, Cl);
+    animaPersonagem( 0, 0, 30, 15, Cl);
 
+    animaPersonagem( -30, -55, 4, 7, tri);
 
-    animaPersonagem(-30, -55, 4, 7, tri);
-
-    animaPersonagem(0, -55, 20, 25, fases);
+    animaPersonagem( 0, -55, 20, 25, fases);
 
     glPushMatrix();
-    glTranslatef(30,-55,0);
-    glRotatef(180,0,0,1);
-    animaPersonagem(0, 0, 4, 7, tri2);
+    glTranslatef( 30, -55, 0);
+    glRotatef( 180, 0, 0, 1);
+    animaPersonagem( 0, 0, 4, 7, tri2);
     glPopMatrix();
-
-
 }
 
 void desenhaBotoesEsc(){
-    animaPersonagem(0, -10, 32.5, 15, Av);
+    animaPersonagem( 0, -10, 32.5, 15, Av);
 
-    animaPersonagem(0, -55, 32.5, 15, Cl);
+    animaPersonagem( 0, -55, 32.5, 15, Cl);
 
     if(botaoAtual == START){
         Av.quadroAtual=0;
@@ -158,156 +158,176 @@ void desenhaBotoesEsc(){
         Cl.quadroAtual=0;
         Av.quadroAtual=1;
     }
-
 }
 
+void desenhaMarCeu(){
+
+    desenhaFundinho( 0, -50, 100, 50, 0.368, 0.494, 0.709);
+    desenhaFundinho( 0, 50, 100, 50, 0.560, 0.721, 0.917);
+    desenhaFundinho( 0, 0, 100, 1, 0.909, 0.949, 1);
+
+    desenhaPersonagem( MarX, -50, 140, 49.9, idMar);
+    desenhaPersonagem( CeuX, 50, 140, 50, idCeu);
+    MarX-=5;
+    CeuX--;
+    if(MarX==-40){
+        MarX2=240.00001;
+        MarI++;
+    }
+        desenhaPersonagem( MarX2, -50, 140, 49.9, idZeldaL0);
+    if(CeuX==-40){
+        CeuX2=240;
+        CeuI++;
+    }
+        desenhaPersonagem( CeuX2, 50, 140, 50, idZeldaL1);
+    MarX2-=5;
+    CeuX2--;
+    if(MarX2==-40){
+        MarX=240.000001;
+        MarI=0;
+    }
+    if(CeuX2==-40){
+        CeuX=239;
+        MarI=0;
+    }
+    logo.quadroAtual=3;
+    animaPersonagem(0, 60, 50, 25, logo);
+}
 
 void desenhaMinhaCena(){
 
     switch(telaAtual){
         case(CLASSICO):
+
             glClear(GL_COLOR_BUFFER_BIT);
 
-            desenhaFundinho(0,-50,100,50,0.368,0.494,0.709);
-            desenhaFundinho(0,50,100,50,0.560,0.721,0.917);
-            desenhaFundinho(0,0,100,1,0.909,0.949,1);
-
-
-            desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
-            desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
-
-            MarX-=5;
-            CeuX--;
-            if(MarX==-40){
-                MarX2=240.00001;
-                MarI++;
-            }
-                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
-            if(CeuX==-40){
-                CeuX2=240;
-                CeuI++;
-            }
-                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
-            MarX2-=5;
-            CeuX2--;
-            if(MarX2==-40){
-                MarX=240.000001;
-                MarI=0;
-            }
-            if(CeuX2==-40){
-                CeuX=240;
-                MarI=0;
-            }
-            logo.quadroAtual=3;
-            animaPersonagem(0, 60, 50, 25, logo);
+            desenhaMarCeu();
 
             desenhaOpcoes();
+
             glutSwapBuffers();
 
-
-
-
         break;
+
         case(INTRO):
+
+            timerHist++;
+
+            if(hist.quadroAtual<13){
+                glClear(GL_COLOR_BUFFER_BIT);
+
+                desenhaMarCeu();
+
+                animaPersonagem(0, -20, 40, 60, hist);
+
+
+                if( hist.quadroAtual!=7 && hist.quadroAtual!=11 ){
+                    if(timerHist%5==0)
+                        hist.quadroAtual++;
+                }
+                if(hist.quadroAtual==7){
+                    if(timerHist%70==0 )
+                        hist.quadroAtual++;
+                }
+                if( hist.quadroAtual==11 ){
+                    if(timerHist%70==0 )
+                        hist.quadroAtual++;
+                }
+                if( hist.quadroAtual==13){
+                    if(timerHist%50==0 )
+                        hist.quadroAtual++;
+                }
+            }else if(hist.quadroAtual>=13){
+                glClear(GL_COLOR_BUFFER_BIT);
+
+                desenhaMarCeu();
+
+                animaPersonagem(0, -20, 40, 60, hist1);
+
+                if(hist1.quadroAtual!=1 && hist1.quadroAtual!=5 && hist1.quadroAtual!=9 && hist1.quadroAtual!=10){
+                    if(timerHist%5==0)
+                        hist1.quadroAtual++;
+                }
+
+                if(hist1.quadroAtual==5){
+                    if(timerHist%70==0)
+                        hist1.quadroAtual++;
+                }
+
+                if(hist1.quadroAtual==9){
+                    if(timerHist%70==0  )
+                        hist1.quadroAtual++;
+                }
+
+                if(hist1.quadroAtual==1){
+                    if(timerHist%70==0)
+                        hist1.quadroAtual++;
+                }
+
+                if(hist1.quadroAtual==10){
+                    if(timerHist%100==0)
+                        hist1.quadroAtual++;
+                }
+            }
+
+
+
+            if(hist1.quadroAtual==13){
+                Ok1=1;
+                telaAtual=JOGO;
+
+            }
+
+            if(hist1.quadroAtual>=1){
+                animaPersonagem(-60,0, 30, 45, linkop);
+
+                if(timerHist%10==0 && linkop.quadroAtual<3){
+                    linkop.quadroAtual++;
+                }
+            }
+
+            if(hist1.quadroAtual>=5){
+
+                animaPersonagem(0,60, 45, 30, ganonop);
+
+                if(timerHist%10==0 && ganonop.quadroAtual<3)
+                    ganonop.quadroAtual++;
+
+            }
+
+            if(hist1.quadroAtual>=9){
+                animaPersonagem(60,0, 30, 45, zeldaop);
+
+                if(timerHist%10==0 && zeldaop.quadroAtual<3)
+                    zeldaop.quadroAtual++;
+
+            }
+
+            glutSwapBuffers();
+
+            break;
+
+        case(ESCOLHA):
 
             glClear(GL_COLOR_BUFFER_BIT);
 
-            desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
-            desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
-
-            MarX-=5;
-            CeuX--;
-
-
-            if(MarX==-40){
-                MarX2=240;
-                MarI++;
-            }
-
-                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
-
-            if(CeuX==-40){
-                CeuX2=240;
-                CeuI++;
-            }
-
-                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
-
-            MarX2-=5;
-            CeuX2--;
-
-
-            if(MarX2==-40){
-                MarX=240;
-                MarI=0;
-            }
-
-            if(CeuX2==-40){
-                CeuX=240;
-                MarI=0;
-            }
-            logo.quadroAtual=3;
-            animaPersonagem(0, 60, 50, 25, logo);
-
+            desenhaMarCeu();
 
             desenhaBotoesEsc();
+
             glutSwapBuffers();
-
-
-
-            break;
-        case(ESCOLHA):
-
-             glClear(GL_COLOR_BUFFER_BIT);
-        
-            desenhaFundinho(0,-50,100,50,0.368,0.494,0.709);
-            desenhaFundinho(0,50,100,50,0.560,0.721,0.917);
-            desenhaFundinho(0,0,100,1,0.909,0.949,1);
-
-
-            desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
-            desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
-
-            MarX-=5;
-            CeuX--;
-            if(MarX==-40){
-                MarX2=240;
-                MarI++;
-            }
-                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
-            if(CeuX==-40){
-                CeuX2=240;
-                CeuI++;
-            }
-                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
-            MarX2-=5;
-            CeuX2--;
-            if(MarX2==-40){
-                MarX=240;
-                MarI=0;
-            }
-            if(CeuX2==-40){
-                CeuX=240;
-                MarI=0;
-            }
-            logo.quadroAtual=3;
-            animaPersonagem(0, 60, 50, 25, logo);
-            desenhaBotoesEsc();
-            glutSwapBuffers();
-
-
 
             break;
         case(MENU):
             if(!MusicaPrincipal){
-                tocar_musica1("../Sounds/principal.ogg",-1);
+              //  tocar_musica1("../Sounds/principal.ogg",-1);
                 MusicaPrincipal=1;
             }
             glClear(GL_COLOR_BUFFER_BIT);
 
-            desenhaFundinho(0,-50,100,50,0.368,0.494,0.709);
-            desenhaFundinho(0,50,100,50,0.560,0.721,0.917);
-            desenhaFundinho(0,0,100,1,0.909,0.949,1);
+            desenhaFundinho( 0, -50, 100, 50, 0.368, 0.494, 0.709);
+            desenhaFundinho( 0, 50, 100, 50, 0.560, 0.721, 0.917);
+            desenhaFundinho( 0, 0, 100, 1, 0.909, 0.949, 1);
             desenhaPersonagem(MarX, -50, 140, 49.9, idMar);
             desenhaPersonagem(CeuX, 50, 140, 50, idCeu);
 
@@ -317,12 +337,12 @@ void desenhaMinhaCena(){
                 MarX2=240.00001;
                 MarI++;
             }
-                desenhaPersonagem(MarX2, -50, 140, 49.9, idZeldaL0);
+                desenhaPersonagem( MarX2, -50, 140, 49.9, idZeldaL0);
             if(CeuX==-40){
                 CeuX2=240;
                 CeuI++;
             }
-                desenhaPersonagem(CeuX2, 50, 140, 50, idZeldaL1);
+                desenhaPersonagem( CeuX2, 50, 140, 50, idZeldaL1);
             MarX2-=5;
             CeuX2--;
             if(MarX2==-40){
@@ -330,12 +350,12 @@ void desenhaMinhaCena(){
                 MarI=0;
             }
             if(CeuX2==-40){
-                CeuX=240;
+                CeuX=239;
                 MarI=0;
             }
             timerLogo++;
             if(timerLogo>240){
-                animaPersonagem(0, 60, 50, 25, logo);
+                animaPersonagem( 0, 60, 50, 25, logo);
                 if(logo.quadroAtual<3 && tempoLogo>=0.1){
                     logo.quadroAtual++;
                     tempoLogo=0;
@@ -346,10 +366,13 @@ void desenhaMinhaCena(){
                 }
                 tempoLogo+=0.028;
             }
+
             desenhaBotoes();
+
             glutSwapBuffers();
 
             break;
+
         case(JOGO):
 /*            if(MusicaPrincipal){
                 parar_musica();
@@ -357,9 +380,9 @@ void desenhaMinhaCena(){
             }*/
             glClear(GL_COLOR_BUFFER_BIT);
 
-            animaPersonagem(0,0,100,100,backg);
+            animaPersonagem( 0, 0, 100, 100, backg);
 
-            animaPersonagem(0, 70, 10, 25, ZeldaPresa);
+            animaPersonagem( 0, 70, 10, 25, ZeldaPresa);
             if(ZeldaPresa.quadroAtual<13 && tempoCristal>=0.1){
                 ZeldaPresa.quadroAtual++;
                 tempoCristal=0;
@@ -374,20 +397,35 @@ void desenhaMinhaCena(){
 
 
             glutSwapBuffers();
+
             break;
+
         case(PAUSE):
+
             glColor3f(1,1,1);
-            desenhaPersonagem(0,0,30,30,pausa);
+
+            desenhaPersonagem( 0, 0, 30, 30,pausa);
+
             glutSwapBuffers();
+
             break;
+
         case(CONFIRMA):
-           glColor3f(1,1,1);
-            desenhaPersonagem(0,0,30,30,idZeldaNormal);
+
+            glColor3f(1,1,1);
+
+            desenhaPersonagem( 0, 0, 30, 30,idZeldaNormal);
+
             glutSwapBuffers();
+
             break;
+
         case(VITORIA):
+
             glClear(GL_COLOR_BUFFER_BIT);
-            animaPersonagem(0,0,100,100,backg);
+
+            animaPersonagem( 0, 0, 100, 100, backg);
+
             desenhaJogo();
 
             if(vitoriaLink){
@@ -403,8 +441,30 @@ void desenhaMinhaCena(){
                 }
                 tempoCristal+=0.05;
 
-
                 desenhaPersonagem(0, 0, 30,30, idVic);
+
+                    //COLOCAR UM TIMER PARA ISSO AQUI ACONTECER
+                        if(Ok1==1 && Ok2==0 && Ok3==0){
+                            backg.quadroAtual=1;
+                            Ok1=0;
+                            Ok2=1;
+                            telaAtual= PAUSE;
+                            telaAtual=JOGO;
+                        }
+                        if(Ok1==0 && Ok2==1 && Ok3==0){
+                            backg.quadroAtual=2;
+                            Ok3=1;
+                            Ok2=0;
+                            telaAtual= PAUSE;
+                            telaAtual=JOGO;
+                        }
+                        if(Ok1==0 && Ok2==0 && Ok3==1){
+                            backg.quadroAtual=3;
+                            telaAtual= PAUSE;
+                            telaAtual=JOGO;
+                        }
+
+
             }
             if(vitoriaGanon){
 
@@ -424,13 +484,14 @@ void desenhaMinhaCena(){
 
             glutSwapBuffers();
             break;
+
         default:
+
             break;
     }
 }
 
 void atualizaVelocidade(){
-
 
     GLfloat yb = bola.posicao.y; // y da bola
     GLfloat xb = bola.posicao.x; // x da bola
@@ -457,19 +518,20 @@ void atualizaVelocidade(){
             int som = rand()%4;
             switch(som){
                 case(0):
-                    tocar_musica2("../Sounds/way1.ogg",0);
+                  //  tocar_musica2("../Sounds/way1.ogg",0);
                     break;
                 case(1):
-                    tocar_musica2("../Sounds/way2.ogg",0);
+                  //  tocar_musica2("../Sounds/way2.ogg",0);
                     break;
                 case(2):
-                    tocar_musica2("../Sounds/way3.ogg",0);
+                  //  tocar_musica2("../Sounds/way3.ogg",0);
                     break;
                 case(3):
-                    tocar_musica2("../Sounds/way4.ogg",0);
+                   // tocar_musica2("../Sounds/way4.ogg",0);
                     break;
             }
         }
+
         if((xb+lb>=xg-lg) && (yb-ab <= yg+ag && yb+ab >= yg-ag)){ //colisao com a frente do ganon
             bola.velocidade.x *= -1;
             xb = xg - lg - 1 + lb;
@@ -479,25 +541,23 @@ void atualizaVelocidade(){
             int som = rand()%3;
             switch(som){
                 case(0):
-                    tocar_musica2("../Sounds/hue1.ogg",0);
+                //    tocar_musica2("../Sounds/hue1.ogg",0);
                     break;
                 case(1):
-                    tocar_musica2("../Sounds/hue2.ogg",0);
+                  //  tocar_musica2("../Sounds/hue2.ogg",0);
                     break;
                 case(2):
-                    tocar_musica2("../Sounds/hue3.ogg",0);
+                 //   tocar_musica2("../Sounds/hue3.ogg",0);
                     break;
             }
         }
     }
 }
 
-//l�gica aqui para baixo um pouco zoada
-
 void atualizaPontuacao(){
 
-    GLfloat xb = bola.posicao.x; // x da bola
-    GLfloat lb = bola.proporcao.x; // largura da bola
+    GLfloat xb = bola.posicao.x;
+    GLfloat lb = bola.proporcao.x;
 
     if(xb-lb<=X_MINIMO ){
         PontuacaoGanon++;
@@ -505,7 +565,7 @@ void atualizaPontuacao(){
         bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
-        tocar_musica2("../Sounds/Lhit1.ogg",0);
+     //   tocar_musica2("../Sounds/Lhit1.ogg",0);
     }
 
     if(xb+lb>=X_MAXIMO ){
@@ -514,7 +574,7 @@ void atualizaPontuacao(){
         bola.posicao.y=65;
         tempoBola=0;
         bola.quadroAtual=1;
-        tocar_musica2("../Sounds/Ghit1.ogg",0);
+       // tocar_musica2("../Sounds/Ghit1.ogg",0);
     }
 
     if(PontuacaoLink==11){
@@ -527,22 +587,22 @@ void atualizaPontuacao(){
         PontuacaoGanon=0;
     }
 
-    if(SetsLink==2){
+    if(SetsLink==1){
         vitoriaLink=1;
         telaAtual=VITORIA;
         bola.posicao.x=5000;
         SetsLink=0;
-        tocar_musica2("../Sounds/Glos.ogg",0);
-        tocar_musica2("../Sounds/Wlink.ogg",0);
+     //   tocar_musica2("../Sounds/Glos.ogg",0);
+      //  tocar_musica2("../Sounds/Wlink.ogg",0);
     }
 
-    if(SetsGanon==2){
+    if(SetsGanon==3){
         vitoriaGanon=1;
         bola.posicao.x=5000;
         telaAtual=VITORIA;
         SetsGanon=0;
-        tocar_musica2("../Sounds/Lhit1.ogg",0);
-        tocar_musica2("../Sounds/Wganon.ogg",0);
+     //   tocar_musica2("../Sounds/Lhit1.ogg",0);
+     //   tocar_musica2("../Sounds/Wganon.ogg",0);
     }
 
 }
@@ -571,7 +631,9 @@ void movimentaPersonagens(){
 }
 
 void atualizaCena(int valorQualquer){
+
     switch(telaAtual){
+
         case(INTRO):
 
             break;
@@ -579,6 +641,7 @@ void atualizaCena(int valorQualquer){
 
             break;
         case(MENU):
+
             break;
         case(JOGO):
             if(PontuacaoLink==10){
@@ -622,17 +685,28 @@ void atualizaCena(int valorQualquer){
                 else
                     bola.velocidade.y-=0.01;
             }
+
             atualizaPontuacao();
+
             atualizaVelocidade();
+
             movimentaPersonagens();
+
             bola.posicao.x+=bola.velocidade.x;
+
             bola.posicao.y+=bola.velocidade.y;
+
             break;
+
         case(PAUSE):
+
             break;
         case(CONFIRMA):
+
             break;
+
         default:
+
             break;
     }
 
@@ -708,7 +782,7 @@ void teclaPressionada(unsigned char key, int x, int y){
                 break;
             case(13):
                 if(botaoAtual == START)
-                    telaAtual = JOGO;
+                    telaAtual = INTRO;
 
                 if(botaoAtual == CLA)
                     telaAtual = CLASSICO;

@@ -322,7 +322,7 @@
 
 1567994983 c:\users\felip\tp1-cg\tp1\inicializa.h
 
-1568998091 source:c:\users\felip\tp1-cg\desenhajogo.c
+1569025225 source:c:\users\felip\tp1-cg\desenhajogo.c
 	<math.h>
 	<GL/glew.h>
 	<GL/freeglut.h>
@@ -331,24 +331,24 @@
 	"main.h"
 	"inicializa.h"
 
-1568997335 c:\users\felip\tp1-cg\global.h
+1569036539 c:\users\felip\tp1-cg\global.h
 
 1568727016 c:\users\felip\tp1-cg\main.h
 
 1567994983 c:\users\felip\tp1-cg\inicializa.h
 
-1568996554 source:c:\users\felip\tp1-cg\global.c
+1569036539 source:c:\users\felip\tp1-cg\global.c
 	<GL/glew.h>
 	<GL/freeglut.h>
 
-1568998149 source:c:\users\felip\tp1-cg\inicializa.c
+1569029574 source:c:\users\felip\tp1-cg\inicializa.c
 	<GL/glew.h>
 	<GL/freeglut.h>
 	<SOIL/SOIL.h>
 	"main.h"
 	"global.h"
 
-1568998091 source:c:\users\felip\tp1-cg\main.c
+1569029164 source:c:\users\felip\tp1-cg\main.c
 	<SOIL/SOIL.h>
 	<math.h>
 	<GL/glew.h>
@@ -409,7 +409,7 @@
 
 1568987223 c:\users\felip\tp1-cg\musica.h
 
-1568992852 source:c:\users\felip\tp1-cg\musica.c
+1569008981 source:c:\users\felip\tp1-cg\musica.c
 	<time.h>
 	<GL/glew.h>
 	<GL/freeglut.h>

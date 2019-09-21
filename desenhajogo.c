@@ -110,13 +110,23 @@ void desenhaJogo(){
 
     glColor3f(0, 0, 0);
 
+    if(SetsGanon<2||(SetsGanon==2 && timerMatchL<7)){
+    stamina.quadroAtual= SetsGanon;
+    animaPersonagem( -90, -70, 5, 12, stamina);
+    }
+
+    if(SetsLink<2||(SetsLink==2 && timerMatchG<7)){
+    stamina.quadroAtual= SetsLink;
+    animaPersonagem( 90,  -70, 5, 12, stamina);
+    }
+
     if(PontuacaoGanon<10||(PontuacaoGanon==10 && timerMatchL<7)){
         heart.quadroAtual=PontuacaoGanon;
-        animaPersonagem(-70,-90, 20,4, heart);
+        animaPersonagem( -70, -90, 20, 4, heart);
     }
     if(PontuacaoLink<10||(PontuacaoLink==10 && timerMatchG<7)){
         heart.quadroAtual=PontuacaoLink;
-        animaPersonagem(70,-90, 20,4,heart);
+        animaPersonagem( 70, -90, 20, 4,heart);
     }
 
 
