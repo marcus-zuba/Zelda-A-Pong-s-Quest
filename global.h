@@ -30,9 +30,7 @@ int CeuX;
 int CeuX2;
 int MarI;
 int CeuI;
-int Ok1;
-int Ok2;
-int Ok3;
+int progresso;
 int timerMatchG;
 int timerMatchL;
 float tempoLogo;
@@ -41,15 +39,19 @@ float tempoCristal;
 float timerGanonAnda;
 float timerLinkAnda;
 int timerHist;
+int timerIdVitoria;
+
 
 enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, CONFIRMA, VITORIA, CLASSICO};
 enum Botao {START, EXIT, CLA};
 enum Personagem {PARADO, ATACANDO, COMEMORANDO};
+enum Modo {AVENTURA, CLASS};
 
 enum Tela telaAtual;
 enum Botao botaoAtual;
 enum Personagem linkAtual;
 enum Personagem ganonAtual;
+enum Modo modoAtual;
 
 
 struct vetor2d{

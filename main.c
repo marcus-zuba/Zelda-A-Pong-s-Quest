@@ -33,21 +33,6 @@ GLuint carregaTextura(const char* arquivo) {
 }
 
 
-void escrevePontuacao(void * font, int pontuacao, float x, float y){
-    glRasterPos2f(x,y);
-
-    char c = pontuacao + 48;
-
-    glutBitmapCharacter(font, c);
-}
-
-void escreveSet(void * font, int set, float x, float y){
-    glRasterPos2f(x,y);
-
-    char c = set + 48;
-
-    glutBitmapCharacter(font, c);
-}
 
 void desenhaFundo(float x, float y, float l, float a, GLuint idTextura){
 
@@ -273,9 +258,8 @@ void desenhaMinhaCena(){
 
 
             if(hist1.quadroAtual==13){
-                Ok1=1;
+                progresso=1;
                 telaAtual=JOGO;
-
             }
 
             if(hist1.quadroAtual>=1){
@@ -428,41 +412,66 @@ void desenhaMinhaCena(){
 
             if(vitoriaLink){
 
-                animaPersonagem(0, 70, 10, 25, ZeldaPresaW);
-                if(ZeldaPresaW.quadroAtual<13 && tempoCristal>=0.1){
-                    ZeldaPresaW.quadroAtual++;
-                    tempoCristal=0;
+                switch(modoAtual){
+                    
+                    case(AVENTURA):
+                        
+                        if(timerIdVitoria<50 && progresso!=4){
+                            desenhaPersonagem(0, 0, 30,30, idVic);
+                            timerIdVitoria++;
+                        }
+                        else{
+                            timerIdVitoria=0;
+
+                            if(progresso==1){
+                                backg.quadroAtual=1;
+                                progresso=2;
+                                telaAtual=JOGO;
+                                vitoriaLink=0;
+                            }
+                            else if(progresso==2){
+                                backg.quadroAtual=2;
+                                progresso=3;
+                                telaAtual=JOGO;
+                                vitoriaLink=0;
+
+                            }
+                            else if(progresso==3){ 
+                                progresso=4;                                   
+                                backg.quadroAtual=3;
+                                telaAtual=JOGO;
+                                vitoriaLink=0;
+                            }
+                            else if(progresso==4){
+                                desenhaPersonagem(0, 0, 30,30, idVic);
+                                animaPersonagem(0, 70, 10, 25, ZeldaPresaW);
+                                if(ZeldaPresaW.quadroAtual<13 && tempoCristal>=0.1){
+                                    ZeldaPresaW.quadroAtual++;
+                                    tempoCristal=0;
+                                }
+                                else if(ZeldaPresa.quadroAtual==13 && tempoCristal>=0.1){
+                                    tempoCristal=0;
+                                }
+                                tempoCristal+=0.05;
+                            }
+                        }            
+                        break;
+                    case(CLASS):
+                        animaPersonagem(0, 70, 10, 25, ZeldaPresaW);
+                        if(ZeldaPresaW.quadroAtual<13 && tempoCristal>=0.1){
+                            ZeldaPresaW.quadroAtual++;
+                            tempoCristal=0;
+                        }
+                        else if(ZeldaPresa.quadroAtual==13 && tempoCristal>=0.1){
+                            tempoCristal=0;
+
+                        }
+                        tempoCristal+=0.05;
+
+                        desenhaPersonagem(0, 0, 30,30, idVic);
+
+                        break;
                 }
-                else if(ZeldaPresa.quadroAtual==13 && tempoCristal>=0.1){
-                    tempoCristal=0;
-
-                }
-                tempoCristal+=0.05;
-
-                desenhaPersonagem(0, 0, 30,30, idVic);
-
-                    //COLOCAR UM TIMER PARA ISSO AQUI ACONTECER
-                        if(Ok1==1 && Ok2==0 && Ok3==0){
-                            backg.quadroAtual=1;
-                            Ok1=0;
-                            Ok2=1;
-                            telaAtual= PAUSE;
-                            telaAtual=JOGO;
-                        }
-                        if(Ok1==0 && Ok2==1 && Ok3==0){
-                            backg.quadroAtual=2;
-                            Ok3=1;
-                            Ok2=0;
-                            telaAtual= PAUSE;
-                            telaAtual=JOGO;
-                        }
-                        if(Ok1==0 && Ok2==0 && Ok3==1){
-                            backg.quadroAtual=3;
-                            telaAtual= PAUSE;
-                            telaAtual=JOGO;
-                        }
-
-
             }
             if(vitoriaGanon){
 
@@ -488,6 +497,8 @@ void desenhaMinhaCena(){
             break;
     }
 }
+
+
 
 void atualizaVelocidade(){
 
@@ -604,26 +615,21 @@ void atualizaPontuacao(){
 }
 
 void movimentaPersonagens(){
-    if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO) /*&& linkAtual==PARADO*/){
+    if(keyboard['w'] && (link.posicao.y+link.proporcao.y < Y_MAXIMO)){
         link.posicao.y+=velocidadeLink;
-//        linkAtual=CIMA;
     }
-    else if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO) /*&& linkAtual==PARADO*/){
+    else if(keyboard['s'] && (link.posicao.y-link.proporcao.y > Y_MINIMO)){
         link.posicao.y-=velocidadeLink;
-//        linkAtual=BAIXO;
+
     }
-//    else if(linkAtual==CIMA || linkAtual==BAIXO)
-//        linkAtual=PARADO;
-    if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO)/* && ganonAtual==PARADO*/){
+    if(keyboard['o'] && (ganon.posicao.y+ganon.proporcao.y < Y_MAXIMO)){
         ganon.posicao.y+=velocidadeGanon;
-//        ganonAtual=CIMA;
+
     }
-    else if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO)/* && ganonAtual==PARADO*/){
+    else if(keyboard['l'] && (ganon.posicao.y-ganon.proporcao.y > Y_MINIMO)){
         ganon.posicao.y-=velocidadeGanon;
-//        ganonAtual=BAIXO
+
     }
-//    else if(ganonAtual==CIMA || ganonAtual==BAIXO)
-//        ganonAtual=PARADO;
 }
 
 void atualizaCena(int valorQualquer){
@@ -777,11 +783,14 @@ void teclaPressionada(unsigned char key, int x, int y){
                 botaoAtual= CLA;
                 break;
             case(13):
-                if(botaoAtual == START)
+                if(botaoAtual == START){
                     telaAtual = INTRO;
-
-                if(botaoAtual == CLA)
+                    modoAtual = AVENTURA;
+                }
+                if(botaoAtual == CLA){
                     telaAtual = CLASSICO;
+                    modoAtual = CLASS;
+                }
                 break;
 
             default:
@@ -908,10 +917,10 @@ int main(int argc, char** argv){
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(1300, 1260);
-    glutInitWindowPosition(200, 100);
+    glutInitWindowPosition(300, 100);
 
 
-    glutCreateWindow(" ");
+    glutCreateWindow("Zelda - A Pong's Quest");
 
     glutReshapeFunc(redimensionada);
     glutKeyboardFunc(teclaPressionada);
