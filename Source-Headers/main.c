@@ -180,6 +180,17 @@ void desenhaMarCeu(){
 void desenhaMinhaCena(){
 
     switch(telaAtual){
+
+		case(REINICIAR):
+
+            glColor3f(1,1,1);
+
+            desenhaPersonagem( 0, 0, 30, 30, reiniciar);
+
+            glutSwapBuffers();
+
+            break;
+	
         case(CLASSICO):
 
             glClear(GL_COLOR_BUFFER_BIT);
@@ -596,7 +607,7 @@ void atualizaPontuacao(){
         PontuacaoGanon=0;
     }
 
-    if(SetsLink==1){
+    if(SetsLink==3){
         vitoriaLink=1;
         telaAtual=VITORIA;
         bola.posicao.x=5000;
@@ -729,17 +740,47 @@ void redimensionada(int width, int height){
     glLoadIdentity();
 }
 
+
+void reiniciaJogo(){
+	telaAtual=MENU;
+    link.posicao.x=-60;
+    link.posicao.y=0;
+    ganon.posicao.x=60;
+    ganon.posicao.y=0;
+    bola.velocidade.x=7;
+    bola.velocidade.y=7;
+    bola.posicao.x=0;
+    bola.posicao.y=65;
+	progresso=1;
+    PontuacaoLink=0;
+    PontuacaoGanon=0;
+    SetsLink=0;
+    SetsGanon=0;
+    vitoriaGanon=0;
+    vitoriaLink=0;
+    seColisao=100;
+    tempoBola=0;
+    linkAtacando=0;
+    ganonAtacando=0;
+    timerMatchG=0;
+    timerMatchL=0;
+}
+
+
 void teclaPressionada(unsigned char key, int x, int y){
     switch(telaAtual){
         case(CLASSICO):
             switch(key){
             case('w'):
                 botaoAtual = START;
+				play_music(opcaoescolha, 2, 0);
                 break;
             case('s'):
                 botaoAtual= CLA;
+				play_music(opcaoescolha, 2, 0);
                 break;
             case('d'):
+				play_music(opcaoescolha, 2, 0);
                 botaoAtual = START;
                 fases.quadroAtual++;
                 if(fases.quadroAtual>3)
@@ -751,6 +792,7 @@ void teclaPressionada(unsigned char key, int x, int y){
                 tri2.quadroAtual=0;
                 break;
             case('a'):
+				play_music(opcaoescolha, 2, 0);
                 botaoAtual = START;
                 fases.quadroAtual--;
                 if(fases.quadroAtual>3)
@@ -778,9 +820,11 @@ void teclaPressionada(unsigned char key, int x, int y){
             switch(key){
             case('w'):
                 botaoAtual = START;
+				play_music(opcaoescolha, 2, 0);
                 break;
             case('s'):
                 botaoAtual= CLA;
+				play_music(opcaoescolha, 2, 0);
                 break;
             case(13):
                 if(botaoAtual == START){
@@ -802,9 +846,11 @@ void teclaPressionada(unsigned char key, int x, int y){
         case(MENU):
             switch(key){
                 case('w'):
+					play_music(opcaoescolha, 2, 0);
                     botaoAtual = START;
                     break;
                 case('s'):
+					play_music(opcaoescolha, 2, 0);
                     botaoAtual = EXIT;
                     break;
                 case(13):
@@ -820,6 +866,10 @@ void teclaPressionada(unsigned char key, int x, int y){
         case(JOGO):
             keyboard[key]=1;
             switch(key){
+				case('r'):
+				 	glutPostRedisplay();
+                    telaAtual=REINICIAR;
+                    break;
                 case(27):
                     glutPostRedisplay();
                     telaAtual = CONFIRMA;
@@ -844,6 +894,17 @@ void teclaPressionada(unsigned char key, int x, int y){
                     break;
             }
             break;
+		case(REINICIAR):
+            switch(key){
+                case('s'):
+                    reiniciaJogo();
+                    break;
+                case('n'):
+                    telaAtual=JOGO;
+                    break;
+				default:
+					break;
+			}
         case(PAUSE):
             switch(key){
                 case('p'):

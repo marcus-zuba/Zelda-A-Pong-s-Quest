@@ -66,6 +66,9 @@ void inicializa(){
     idMar = carregaTextura("../Texturas/mar.png");
     idCeu = carregaTextura("../Texturas/ceu.png");
     pausa = carregaTextura("../Texturas/pause.png");
+    reiniciar = carregaTextura("../Texturas/BOTAO_rei.png");
+
+    opcaoescolha = load_music("../Sounds/select.ogg"); 
 
     way1 = load_music("../Sounds/way1.ogg");
     way2 = load_music("../Sounds/way2.ogg");

@@ -38,7 +38,7 @@ float timerLinkAnda =0;
 int timerHist =0;
 int timerIdVitoria=0;
 
-enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, CONFIRMA, VITORIA,CLASSICO};
+enum Tela {INTRO, ESCOLHA, MENU, JOGO, PAUSE, REINICIAR, CONFIRMA, VITORIA,CLASSICO};
 enum Botao {START, EXIT, CLA};
 enum Personagem {PARADO, ATACANDO, COMEMORANDO};
 enum Modo {AVENTURA, CLASS};
@@ -119,6 +119,9 @@ GLint idLos;
 GLuint idMar;
 GLuint idCeu;
 GLuint pausa;
+GLuint reiniciar;
+
+Mix_Chunk * opcaoescolha; 
 
 Mix_Chunk * way1; 
 Mix_Chunk * way2; 
