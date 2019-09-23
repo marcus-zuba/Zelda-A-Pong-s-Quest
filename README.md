@@ -1,4 +1,9 @@
 #  The Legend of Zelda : A Pong's Quest
+
+<p align="center">
+  <img width="734" height="307" src="https://github.com/karl-marcus/Zelda-A-Pong-s-Quest/blob/master/Texturas/Logo-Readme.png?raw=true">
+</p>
+
 O herói do tempo está novamente acordado e, junto com ele, o seu mais temido destino, o terrível Ganon. No embate entre as três virtudes da TriForce, Coragem e Força se enfrentam, no adormecer da Sabedoria. Cabe a Link garantir o futuro de Hyrule.  
 
 Primeiro Trabalho Prático da disciplina Computação Gráfica do Centro Federal de Educação Tecnológica de Minas Gerais  
@@ -20,7 +25,7 @@ ou<br />
 
 <em>sudo apt install freeglut3-dev libglew-dev libsoil-dev libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev</em><br />
 
-Para compilar e executar o programa é necessário ir até a pasta makefile, abrir pelo terminal e executar o comando "make run".
+Para compilar e executar o programa é necessário ir até a pasta MakeFile, abrir pelo terminal e executar o comando "make run".
 
 ## Comandos
 
